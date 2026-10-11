@@ -98,7 +98,3 @@ Forever Exercise is for WoW Forever, interface 16001. The text is in English.
 ## Translations
 
 Translations are done with AI. If you have a better one, send a pull request on [GitHub](https://github.com/omp0815/forever-exercise).
-
-## From this repository
-
-`update.bat` copies the addon into the local Forever AddOns folder.
