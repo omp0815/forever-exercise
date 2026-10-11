@@ -3,7 +3,8 @@ local ADDON, ns = ...
 local function ApplyLocale()
     local code = GetLocale()
     if code == "enGB" then code = "enUS" end
-    ns.L = setmetatable(ns.locales[code] or {}, { __index = ns.locales.enUS })
+    -- English itself is the fallback, so it must not index itself.
+    ns.L = setmetatable(code ~= "enUS" and ns.locales[code] or {}, { __index = ns.locales.enUS })
     for _, exercise in ipairs(ns.exercises) do
         local translated = ns.L.exercises[exercise.id]
         if translated then
