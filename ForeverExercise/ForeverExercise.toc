@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: Forever Exercise
+## Notes: Reminds you to do a short desk exercise every so often. /fex
+## Version: 0.1.0
+## IconTexture: Interface\Icons\INV_Misc_PocketWatch_01
+## SavedVariables: ForeverExerciseDB
+
+Exercises.lua
+ForeverExercise.lua
