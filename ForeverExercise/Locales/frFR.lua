@@ -57,7 +57,7 @@ ns.locales.frFR = {
         },
         shrugs = {
             name = "Haussements d'épaules",
-            flavor = "Oubliez ce dernier échec d'un haussement d'épaules.",
+            flavor = "Oubliez ce dernier wipe d'un haussement d'épaules.",
             steps = {
                 "Assis droit, laissez pendre les bras.",
                 "Montez les épaules vers les oreilles. Tenez 2 secondes.",
@@ -67,7 +67,7 @@ ns.locales.frFR = {
         },
         sideStretch = {
             name = "Étirement latéral, bras levés",
-            flavor = "Tendez les bras comme si le butin venait de tomber.",
+            flavor = "Tendez les bras comme si le loot venait de tomber.",
             steps = {
                 "Assis droit, tendez les deux bras au-dessus de la tête, paumes jointes.",
                 "Penchez-vous lentement d'un côté jusqu'à sentir l'étirement. Tenez 5 secondes.",
@@ -87,7 +87,7 @@ ns.locales.frFR = {
         },
         legExtensions = {
             name = "Extensions de jambes assises",
-            flavor = "Vos jambes sont absentes depuis assez longtemps.",
+            flavor = "Vos jambes sont AFK depuis assez longtemps.",
             steps = {
                 "Assis au bord, droit, mains sur les cuisses.",
                 "Tendez une jambe horizontale, orteils ramenés vers vous. Tenez 3 secondes.",

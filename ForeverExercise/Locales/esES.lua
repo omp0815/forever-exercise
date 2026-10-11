@@ -24,23 +24,23 @@ ns.locales.esES = {
     snoozedNext = "Aplazado, siguiente ejercicio en %s",
     nextExercise = "Siguiente ejercicio en %s",
     deathWaits = "El ejercicio al morir espera a que liberes el espíritu",
-    inRaid = "en una banda",
+    inRaid = "en una raid",
     inDungeon = "en una mazmorra",
     clickSettings = "Haz clic para abrir las opciones. Arrastra para mover.",
 
     reminderInterval = "Intervalo de aviso",
     reminderIntervalTip = "Minutos de juego entre avisos de ejercicio.",
     minutes = "%d min",
-    pauseInRaids = "Pausar en bandas",
-    pauseInRaidsTip = "Detiene el temporizador mientras estás en una banda. Se reanuda al salir.",
+    pauseInRaids = "Pausar en raids",
+    pauseInRaidsTip = "Detiene el temporizador mientras estás en una raid. Se reanuda al salir.",
     pauseInDungeons = "Pausar en mazmorras",
     pauseInDungeonsTip = "Detiene el temporizador mientras estás en una mazmorra. Se reanuda al salir.",
     exerciseOnDeath = "Ejercicio al morir",
     exerciseOnDeathTip = "Muestra un ejercicio cuando mueres en el mundo, en un campo de batalla o en una arena.",
     exerciseOnDungeonDeath = "Ejercicio al morir en mazmorra",
-    exerciseOnDungeonDeathTip = "Muestra un ejercicio cuando mueres en una mazmorra. Las bandas tienen su propia opción.",
-    exerciseOnRaidDeath = "Ejercicio al morir en banda",
-    exerciseOnRaidDeathTip = "Muestra un ejercicio cuando mueres en una banda.",
+    exerciseOnDungeonDeathTip = "Muestra un ejercicio cuando mueres en una mazmorra. Las raids tienen su propia opción.",
+    exerciseOnRaidDeath = "Ejercicio al morir en raid",
+    exerciseOnRaidDeathTip = "Muestra un ejercicio cuando mueres en una raid.",
     onlyGhost = "Solo como fantasma",
     onlyGhostTip = "Espera a que liberes el espíritu, en vez de mostrar el ejercicio sobre el cadáver.",
 
@@ -57,7 +57,7 @@ ns.locales.esES = {
         },
         shrugs = {
             name = "Encogimientos de hombros",
-            flavor = "Encógete de hombros ante la última derrota del grupo.",
+            flavor = "Encógete de hombros ante la última wipe.",
             steps = {
                 "Siéntate con la espalda recta y deja los brazos sueltos.",
                 "Sube ambos hombros hacia las orejas. Mantén 2 segundos.",
@@ -67,7 +67,7 @@ ns.locales.esES = {
         },
         sideStretch = {
             name = "Estiramiento lateral en alto",
-            flavor = "Estira como si el botín acabara de caer.",
+            flavor = "Estira como si el loot acabara de caer.",
             steps = {
                 "Siéntate con la espalda recta y estira ambos brazos por encima de la cabeza, palmas juntas.",
                 "Inclínate despacio hacia un lado hasta notar el estiramiento. Mantén 5 segundos.",
@@ -87,7 +87,7 @@ ns.locales.esES = {
         },
         legExtensions = {
             name = "Extensiones de piernas sentado",
-            flavor = "Tus piernas ya llevan suficiente tiempo ausentes.",
+            flavor = "Tus piernas ya llevan suficiente tiempo AFK.",
             steps = {
                 "Siéntate con la espalda recta en el borde del asiento, manos sobre los muslos.",
                 "Estira una pierna hasta dejarla horizontal, con los dedos del pie hacia ti. Mantén 3 segundos.",
@@ -117,7 +117,7 @@ ns.locales.esES = {
         },
         march = {
             name = "Marcha en el sitio",
-            flavor = "Marcha como si llegaras tarde a la banda.",
+            flavor = "Marcha como si llegaras tarde a la raid.",
             steps = {
                 "Ponte de pie, con la espalda recta, junto al escritorio.",
                 "Levanta una rodilla hasta la altura de la cadera y balancea el brazo contrario hacia delante.",

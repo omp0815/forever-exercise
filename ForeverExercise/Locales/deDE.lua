@@ -24,23 +24,23 @@ ns.locales.deDE = {
     snoozedNext = "Verschoben, nächste Übung in %s",
     nextExercise = "Nächste Übung in %s",
     deathWaits = "Die Todesübung wartet, bis du deinen Geist freilässt",
-    inRaid = "im Schlachtzug",
+    inRaid = "im Raid",
     inDungeon = "im Dungeon",
     clickSettings = "Klicken, um die Einstellungen zu öffnen. Ziehen, um zu verschieben.",
 
     reminderInterval = "Erinnerungsintervall",
     reminderIntervalTip = "Minuten Spielzeit zwischen den Übungserinnerungen.",
     minutes = "%d Min",
-    pauseInRaids = "Pause in Schlachtzügen",
-    pauseInRaidsTip = "Stoppt den Timer, solange du in einem Schlachtzug bist. Er wird fortgesetzt, wenn du ihn verlässt.",
+    pauseInRaids = "Pause in Raids",
+    pauseInRaidsTip = "Stoppt den Timer, solange du in einem Raid bist. Er wird fortgesetzt, wenn du ihn verlässt.",
     pauseInDungeons = "Pause in Dungeons",
     pauseInDungeonsTip = "Stoppt den Timer, solange du in einem Dungeon bist. Er wird fortgesetzt, wenn du ihn verlässt.",
     exerciseOnDeath = "Beim Tod üben",
     exerciseOnDeathTip = "Zeigt eine Übung, wenn du in der offenen Welt, einem Schlachtfeld oder einer Arena stirbst.",
     exerciseOnDungeonDeath = "Beim Tod im Dungeon üben",
-    exerciseOnDungeonDeathTip = "Zeigt eine Übung, wenn du in einem Dungeon stirbst. Schlachtzüge haben eine eigene Option.",
-    exerciseOnRaidDeath = "Beim Tod im Schlachtzug üben",
-    exerciseOnRaidDeathTip = "Zeigt eine Übung, wenn du in einem Schlachtzug stirbst.",
+    exerciseOnDungeonDeathTip = "Zeigt eine Übung, wenn du in einem Dungeon stirbst. Raids haben eine eigene Option.",
+    exerciseOnRaidDeath = "Beim Tod im Raid üben",
+    exerciseOnRaidDeathTip = "Zeigt eine Übung, wenn du in einem Raid stirbst.",
     onlyGhost = "Nur als Geist",
     onlyGhostTip = "Wartet, bis du deinen Geist freilässt, statt die Übung an der Leiche zu zeigen.",
 
@@ -57,7 +57,7 @@ ns.locales.deDE = {
         },
         shrugs = {
             name = "Schulterzucken",
-            flavor = "Tu den letzten Fehlschlag mit einem Achselzucken ab.",
+            flavor = "Tu den letzten Wipe mit einem Achselzucken ab.",
             steps = {
                 "Sitz aufrecht und lass die Arme locker hängen.",
                 "Zieh beide Schultern zu den Ohren hoch. Halte 2 Sekunden.",
@@ -67,7 +67,7 @@ ns.locales.deDE = {
         },
         sideStretch = {
             name = "Überkopf-Seitdehnung",
-            flavor = "Streck dich, als wäre gerade Beute gefallen.",
+            flavor = "Streck dich, als wäre gerade Loot gefallen.",
             steps = {
                 "Sitz aufrecht und streck beide Arme über den Kopf, Handflächen aneinander.",
                 "Neige dich langsam zur Seite, bis du die Dehnung spürst. Halte 5 Sekunden.",
@@ -87,7 +87,7 @@ ns.locales.deDE = {
         },
         legExtensions = {
             name = "Beinstrecken im Sitzen",
-            flavor = "Deine Beine waren lange genug nicht an der Tastatur.",
+            flavor = "Deine Beine waren lange genug AFK.",
             steps = {
                 "Sitz aufrecht vorn auf dem Sitz, die Hände auf den Oberschenkeln.",
                 "Streck ein Bein waagerecht aus, die Zehen zu dir gezogen. Halte 3 Sekunden.",
@@ -117,7 +117,7 @@ ns.locales.deDE = {
         },
         march = {
             name = "Marsch auf der Stelle",
-            flavor = "Marschier, als kämst du zu spät zum Schlachtzug.",
+            flavor = "Marschier, als kämst du zu spät zum Raid.",
             steps = {
                 "Steh aufrecht neben dem Schreibtisch.",
                 "Heb ein Knie Richtung Hüfthöhe und schwing den gegenüberliegenden Arm nach vorn.",

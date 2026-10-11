@@ -24,23 +24,23 @@ ns.locales.koKR = {
     snoozedNext = "미뤄 둠, 다음 운동까지 %s",
     nextExercise = "다음 운동까지 %s",
     deathWaits = "사망 시 운동은 영혼을 놓아줄 때까지 기다립니다.",
-    inRaid = "공격대에서",
+    inRaid = "레이드에서",
     inDungeon = "던전에서",
     clickSettings = "클릭하면 설정이 열립니다. 드래그하면 이동합니다.",
 
     reminderInterval = "알림 간격",
     reminderIntervalTip = "운동 알림 사이의 플레이 시간(분)입니다.",
     minutes = "%d분",
-    pauseInRaids = "공격대에서 일시정지",
-    pauseInRaidsTip = "공격대 안에 있는 동안 타이머를 멈춥니다. 나가면 이어서 재개됩니다.",
+    pauseInRaids = "레이드에서 일시정지",
+    pauseInRaidsTip = "레이드 안에 있는 동안 타이머를 멈춥니다. 나가면 이어서 재개됩니다.",
     pauseInDungeons = "던전에서 일시정지",
     pauseInDungeonsTip = "던전 안에 있는 동안 타이머를 멈춥니다. 나가면 이어서 재개됩니다.",
     exerciseOnDeath = "사망 시 운동",
     exerciseOnDeathTip = "야외, 전장, 투기장에서 죽으면 운동을 보여 줍니다.",
     exerciseOnDungeonDeath = "던전 사망 시 운동",
-    exerciseOnDungeonDeathTip = "던전에서 죽으면 운동을 보여 줍니다. 공격대는 별도 옵션입니다.",
-    exerciseOnRaidDeath = "공격대 사망 시 운동",
-    exerciseOnRaidDeathTip = "공격대에서 죽으면 운동을 보여 줍니다.",
+    exerciseOnDungeonDeathTip = "던전에서 죽으면 운동을 보여 줍니다. 레이드는 별도 옵션입니다.",
+    exerciseOnRaidDeath = "레이드 사망 시 운동",
+    exerciseOnRaidDeathTip = "레이드에서 죽으면 운동을 보여 줍니다.",
     onlyGhost = "유령 상태일 때만",
     onlyGhostTip = "시체 상태에서는 보여 주지 않고, 영혼을 놓아줄 때까지 기다립니다.",
 
@@ -57,7 +57,7 @@ ns.locales.koKR = {
         },
         shrugs = {
             name = "어깨 으쓱하기",
-            flavor = "지난 전멸은 어깨로 털어 버리세요.",
+            flavor = "지난 와이프(wipe)는 어깨로 털어 버리세요.",
             steps = {
                 "허리를 펴고 앉아 팔을 늘어뜨리세요.",
                 "양쪽 어깨를 귀 쪽으로 끌어올리고 2초간 유지하세요.",
@@ -67,7 +67,7 @@ ns.locales.koKR = {
         },
         sideStretch = {
             name = "머리 위 옆구리 스트레칭",
-            flavor = "전리품이 막 떨어진 듯 손을 뻗으세요.",
+            flavor = "루트(loot)가 막 떨어진 듯 손을 뻗으세요.",
             steps = {
                 "허리를 펴고 앉아 손바닥을 맞대고 양팔을 머리 위로 뻗으세요.",
                 "옆구리가 당겨질 때까지 한쪽으로 천천히 기울이고 5초간 유지하세요.",
@@ -87,7 +87,7 @@ ns.locales.koKR = {
         },
         legExtensions = {
             name = "앉아서 다리 펴기",
-            flavor = "다리가 너무 오래 자리를 비웠습니다.",
+            flavor = "다리가 너무 오래 AFK입니다.",
             steps = {
                 "의자 앞쪽에 허리를 펴고 앉아 양손을 허벅지에 올리세요.",
                 "한쪽 다리를 수평으로 펴고 발끝을 당긴 채 3초간 유지하세요.",
@@ -117,7 +117,7 @@ ns.locales.koKR = {
         },
         march = {
             name = "제자리 행진",
-            flavor = "공격대에 늦은 것처럼 행진하세요.",
+            flavor = "레이드에 늦은 것처럼 행진하세요.",
             steps = {
                 "책상 옆에 허리를 펴고 서세요.",
                 "한쪽 무릎을 골반 높이로 들고 반대쪽 팔을 앞으로 흔드세요.",

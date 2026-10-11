@@ -57,7 +57,7 @@ ns.locales.ptBR = {
         },
         shrugs = {
             name = "Encolhimento de Ombros",
-            flavor = "Dê de ombros para a última derrota na raide.",
+            flavor = "Dê de ombros para a última wipe.",
             steps = {
                 "Sente-se com a coluna reta e deixe os braços soltos.",
                 "Puxe os dois ombros em direção às orelhas. Segure 2 segundos.",
@@ -67,7 +67,7 @@ ns.locales.ptBR = {
         },
         sideStretch = {
             name = "Alongamento Lateral Acima da Cabeça",
-            flavor = "Alcance como se o saque acabasse de cair.",
+            flavor = "Alcance como se o loot acabasse de cair.",
             steps = {
                 "Sente-se com a coluna reta e leve os dois braços acima da cabeça, palmas juntas.",
                 "Incline devagar para um lado até sentir o alongamento. Segure 5 segundos.",
@@ -87,7 +87,7 @@ ns.locales.ptBR = {
         },
         legExtensions = {
             name = "Extensões de Pernas Sentadas",
-            flavor = "Suas pernas estão LDT há tempo demais.",
+            flavor = "Suas pernas estão AFK há tempo demais.",
             steps = {
                 "Sente-se na ponta do assento, coluna reta, mãos nas coxas.",
                 "Estique uma perna até a horizontal, com os dedos do pé puxados para você. Segure 3 segundos.",

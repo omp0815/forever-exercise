@@ -24,23 +24,23 @@ ns.locales.zhCN = {
     snoozedNext = "已延后，下次运动还有 %s",
     nextExercise = "下次运动还有 %s",
     deathWaits = "死亡运动要等到你释放灵魂",
-    inRaid = "在团队副本中",
+    inRaid = "在raid中",
     inDungeon = "在地下城中",
     clickSettings = "点击打开设置。拖动即可移动。",
 
     reminderInterval = "提醒间隔",
     reminderIntervalTip = "两次运动提醒之间相隔的游戏分钟数。",
     minutes = "%d 分钟",
-    pauseInRaids = "团队副本中暂停",
-    pauseInRaidsTip = "在团队副本中停止计时。离开后会恢复。",
+    pauseInRaids = "raid中暂停",
+    pauseInRaidsTip = "在raid中停止计时。离开后会恢复。",
     pauseInDungeons = "地下城中暂停",
     pauseInDungeonsTip = "在地下城中停止计时。离开后会恢复。",
     exerciseOnDeath = "死亡时运动",
     exerciseOnDeathTip = "在世界、战场或竞技场中死亡时显示运动。",
     exerciseOnDungeonDeath = "地下城死亡时运动",
-    exerciseOnDungeonDeathTip = "在地下城中死亡时显示运动。团队副本有自己的选项。",
-    exerciseOnRaidDeath = "团队副本死亡时运动",
-    exerciseOnRaidDeathTip = "在团队副本中死亡时显示运动。",
+    exerciseOnDungeonDeathTip = "在地下城中死亡时显示运动。raid有自己的选项。",
+    exerciseOnRaidDeath = "raid死亡时运动",
+    exerciseOnRaidDeathTip = "在raid中死亡时显示运动。",
     onlyGhost = "只在鬼魂状态下",
     onlyGhostTip = "等到你释放灵魂后再显示，而不是在尸体上就出现。",
 
@@ -57,7 +57,7 @@ ns.locales.zhCN = {
         },
         shrugs = {
             name = "耸肩",
-            flavor = "把上次团灭耸掉吧。",
+            flavor = "把上次wipe耸掉吧。",
             steps = {
                 "坐直，双臂自然下垂。",
                 "把双肩向上提到耳边，保持 2 秒。",
@@ -67,7 +67,7 @@ ns.locales.zhCN = {
         },
         sideStretch = {
             name = "举臂侧拉伸",
-            flavor = "伸手去够刚掉下来的战利品。",
+            flavor = "伸手去够刚掉下来的loot。",
             steps = {
                 "坐直，双臂举过头顶，掌心相合。",
                 "慢慢侧弯，直到感到拉伸，保持 5 秒。",
@@ -87,7 +87,7 @@ ns.locales.zhCN = {
         },
         legExtensions = {
             name = "坐姿伸腿",
-            flavor = "双腿暂离够久了。",
+            flavor = "双腿AFK够久了。",
             steps = {
                 "坐在椅子前缘，上身坐直，双手放在大腿上。",
                 "一条腿伸至水平，脚尖勾向自己，保持 3 秒。",
@@ -117,7 +117,7 @@ ns.locales.zhCN = {
         },
         march = {
             name = "原地踏步",
-            flavor = "踏步吧，像是快赶不上团队副本了。",
+            flavor = "踏步吧，像是快赶不上raid了。",
             steps = {
                 "在桌旁站直。",
                 "一膝抬到髋部高度，对侧手臂向前摆。",

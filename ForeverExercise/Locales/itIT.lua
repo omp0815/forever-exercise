@@ -24,23 +24,23 @@ ns.locales.itIT = {
     snoozedNext = "Posticipato, prossimo esercizio tra %s",
     nextExercise = "Prossimo esercizio tra %s",
     deathWaits = "L'esercizio alla morte attende che liberi lo spirito",
-    inRaid = "durante un'incursione",
+    inRaid = "durante un raid",
     inDungeon = "durante una spedizione",
     clickSettings = "Clicca per aprire le impostazioni. Trascina per spostare.",
 
     reminderInterval = "Intervallo promemoria",
     reminderIntervalTip = "Minuti di gioco tra un promemoria di esercizio e l'altro.",
     minutes = "%d min",
-    pauseInRaids = "Pausa in incursioni",
-    pauseInRaidsTip = "Ferma il timer mentre sei in un'incursione. Riprende quando esci.",
+    pauseInRaids = "Pausa in raid",
+    pauseInRaidsTip = "Ferma il timer mentre sei in un raid. Riprende quando esci.",
     pauseInDungeons = "Pausa in spedizioni",
     pauseInDungeonsTip = "Ferma il timer mentre sei in una spedizione. Riprende quando esci.",
     exerciseOnDeath = "Esercizio alla morte",
     exerciseOnDeathTip = "Mostra un esercizio quando muori nel mondo, in un campo di battaglia o in un'arena.",
     exerciseOnDungeonDeath = "Alla morte in spedizione",
-    exerciseOnDungeonDeathTip = "Mostra un esercizio quando muori in una spedizione. Le incursioni hanno un'opzione a parte.",
-    exerciseOnRaidDeath = "Alla morte in incursione",
-    exerciseOnRaidDeathTip = "Mostra un esercizio quando muori in un'incursione.",
+    exerciseOnDungeonDeathTip = "Mostra un esercizio quando muori in una spedizione. I raid hanno un'opzione a parte.",
+    exerciseOnRaidDeath = "Alla morte in raid",
+    exerciseOnRaidDeathTip = "Mostra un esercizio quando muori in un raid.",
     onlyGhost = "Solo da fantasma",
     onlyGhostTip = "Aspetta che liberi lo spirito, invece di mostrare l'esercizio sul cadavere.",
 
@@ -57,7 +57,7 @@ ns.locales.itIT = {
         },
         shrugs = {
             name = "Scrollate di spalle",
-            flavor = "Scrollati di dosso l'ultima disfatta.",
+            flavor = "Scrollati di dosso l'ultima wipe.",
             steps = {
                 "Siediti dritto e lascia penzolare le braccia.",
                 "Solleva entrambe le spalle verso le orecchie. Tieni 2 secondi.",
@@ -67,7 +67,7 @@ ns.locales.itIT = {
         },
         sideStretch = {
             name = "Allungamento laterale in alto",
-            flavor = "Allungati come se il bottino fosse appena caduto.",
+            flavor = "Allungati come se il loot fosse appena caduto.",
             steps = {
                 "Siediti dritto e allunga entrambe le braccia sopra la testa, palmi uniti.",
                 "Inclinati lentamente da un lato finché non senti l'allungamento. Tieni 5 secondi.",
@@ -87,7 +87,7 @@ ns.locales.itIT = {
         },
         legExtensions = {
             name = "Estensioni delle gambe da seduto",
-            flavor = "Le tue gambe sono assenti da troppo tempo.",
+            flavor = "Le tue gambe sono AFK da troppo tempo.",
             steps = {
                 "Siediti dritto sul bordo del sedile, mani sulle cosce.",
                 "Distendi una gamba in orizzontale, con le punte dei piedi tirate verso di te. Tieni 3 secondi.",
@@ -117,7 +117,7 @@ ns.locales.itIT = {
         },
         march = {
             name = "Marcia sul posto",
-            flavor = "Marcia come se fossi in ritardo per l'incursione.",
+            flavor = "Marcia come se fossi in ritardo per il raid.",
             steps = {
                 "Stai dritto accanto alla scrivania.",
                 "Solleva un ginocchio all'altezza del fianco e oscilla in avanti il braccio opposto.",

@@ -24,23 +24,23 @@ ns.locales.zhTW = {
     snoozedNext = "已延後，下次運動還有 %s",
     nextExercise = "下次運動還有 %s",
     deathWaits = "死亡運動會等到你釋放靈魂",
-    inRaid = "在團本中",
+    inRaid = "在raid中",
     inDungeon = "在地城中",
     clickSettings = "點擊開啟設定。拖曳可移動。",
 
     reminderInterval = "提醒間隔",
     reminderIntervalTip = "兩次運動提醒之間相隔的遊戲分鐘數。",
     minutes = "%d 分鐘",
-    pauseInRaids = "團本中暫停",
-    pauseInRaidsTip = "在團本內停止計時，離開後恢復。",
+    pauseInRaids = "raid中暫停",
+    pauseInRaidsTip = "在raid內停止計時，離開後恢復。",
     pauseInDungeons = "地城中暫停",
     pauseInDungeonsTip = "在地城內停止計時，離開後恢復。",
     exerciseOnDeath = "死亡時運動",
     exerciseOnDeathTip = "在世界、戰場或競技場中死亡時顯示運動。",
     exerciseOnDungeonDeath = "地城死亡時運動",
-    exerciseOnDungeonDeathTip = "在地城中死亡時顯示運動。團本有自己的選項。",
-    exerciseOnRaidDeath = "團本死亡時運動",
-    exerciseOnRaidDeathTip = "在團本中死亡時顯示運動。",
+    exerciseOnDungeonDeathTip = "在地城中死亡時顯示運動。raid有自己的選項。",
+    exerciseOnRaidDeath = "raid死亡時運動",
+    exerciseOnRaidDeathTip = "在raid中死亡時顯示運動。",
     onlyGhost = "只在幽靈時",
     onlyGhostTip = "等到你釋放靈魂再顯示，而不是在屍體上就出現。",
 
@@ -57,7 +57,7 @@ ns.locales.zhTW = {
         },
         shrugs = {
             name = "聳肩",
-            flavor = "把上次滅團聳掉吧。",
+            flavor = "把上次wipe聳掉吧。",
             steps = {
                 "坐直，雙臂自然垂下。",
                 "雙肩朝耳朵提起，停留 2 秒。",
@@ -67,7 +67,7 @@ ns.locales.zhTW = {
         },
         sideStretch = {
             name = "舉臂側伸",
-            flavor = "伸手去撈剛掉下來的戰利品。",
+            flavor = "伸手去撈剛掉下來的loot。",
             steps = {
                 "坐直，雙臂舉過頭頂，掌心相合。",
                 "慢慢側彎，直到感到拉伸，停留 5 秒。",
@@ -87,7 +87,7 @@ ns.locales.zhTW = {
         },
         legExtensions = {
             name = "坐姿伸腿",
-            flavor = "雙腿暫離夠久了。",
+            flavor = "雙腿AFK夠久了。",
             steps = {
                 "靠近椅面前緣坐直，雙手放在大腿上。",
                 "一腿伸至水平，腳尖朝自己勾回，停留 3 秒。",
@@ -117,7 +117,7 @@ ns.locales.zhTW = {
         },
         march = {
             name = "原地踏步",
-            flavor = "踏步吧，像趕不上團本。",
+            flavor = "踏步吧，像趕不上raid。",
             steps = {
                 "在桌旁站直。",
                 "一膝抬到髖部高度，對側手臂向前擺。",
