@@ -93,6 +93,21 @@
 
 <aside>
   <h2>Dev panel</h2>
+  <label>Language
+    <select id="lang">
+      <option value="enUS">English</option>
+      <option value="deDE">Deutsch</option>
+      <option value="frFR">Français</option>
+      <option value="esES">Español (España)</option>
+      <option value="esMX">Español (Latinoamérica)</option>
+      <option value="itIT">Italiano</option>
+      <option value="ptBR">Português (Brasil)</option>
+      <option value="ruRU">Русский</option>
+      <option value="koKR">한국어</option>
+      <option value="zhCN">简体中文</option>
+      <option value="zhTW">繁體中文</option>
+    </select>
+  </label>
   <label>Exercise <select id="picker"></select></label>
   <button id="show">Show reminder</button>
   <button id="finish">Finish countdown</button>
@@ -126,6 +141,7 @@
 const LUA = '../ForeverExercise/Exercises.lua';
 const $ = (id) => document.getElementById(id);
 let D, S, ex, src = '', t = 0;
+let locale = null;
 // Mirrors the locals of ForeverExercise.lua
 const sim = { elapsed: 0, snoozed: false, combatHide: false, remaining: null, done: false };
 let waitingGhost = false;
@@ -166,18 +182,52 @@ function setBar(value, text) {
   $('bartext').textContent = text;
 }
 
+function say(key, fallback, ...args) {
+  return fill((locale && locale[key]) || fallback, ...args);
+}
+
+function spoken(exercise) {
+  const pack = locale && locale.exercises && locale.exercises[exercise.id];
+  return pack ? { ...exercise, name: pack.name, flavor: pack.flavor, steps: pack.steps } : exercise;
+}
+
+function fitFrame() {
+  const frame = document.querySelector('.frame');
+  frame.style.width = '';
+  frame.style.height = '';
+  let x = 6;
+  for (const id of ['start', 'another', 'snooze', 'skip']) {
+    const button = $(id);
+    button.style.width = 'max-content';
+    const width = Math.max(108, button.offsetWidth + 12);
+    button.style.width = width + 'px';
+    button.style.left = x + 'px';
+    x += width + 4;
+  }
+  frame.style.width = Math.max(470, x + 8) + 'px';
+  const bar = document.querySelector('.bar');
+  const steps = $('steps');
+  const overlap = steps.offsetTop + steps.scrollHeight - (bar.offsetTop - 8);
+  if (overlap > 0) frame.style.height = (frame.offsetHeight + overlap) + 'px';
+}
+
 function setIdle() {
   sim.remaining = null;
   sim.done = false;
-  setBar(0, `Ready? ${D.timing.duration} seconds`);
-  $('start').textContent = 'Start';
+  setBar(0, say('ready', 'Ready? %d seconds', D.timing.duration));
+  $('start').textContent = say('start', 'Start');
   $('start').disabled = false;
 }
 
 function render() {
-  $('name').textContent = ex.name;
-  $('flavor').textContent = ex.flavor;
-  $('steps').innerHTML = ex.steps.map((s, i) => `<p><b>${i + 1}.</b> ${esc(s)}</p>`).join('');
+  const text = spoken(ex);
+  document.querySelector('.titlebar').textContent = say('title', 'Forever Exercise');
+  $('another').textContent = say('another', 'Another');
+  $('skip').textContent = say('skip', 'Skip');
+  $('snooze').textContent = say('snooze', 'Snooze %d min', D.timing.snooze);
+  $('name').textContent = text.name;
+  $('flavor').textContent = text.flavor;
+  $('steps').innerHTML = text.steps.map((s, i) => `<p><b>${i + 1}.</b> ${esc(s)}</p>`).join('');
   sizeCanvas($('big').firstElementChild, 180);
   $('thumbs').replaceChildren(...ex.frames.map((pose, i) => {
     const el = document.createElement('div');
@@ -191,6 +241,7 @@ function render() {
   $('picker').value = ex.id;
   t = 0;
   setIdle();
+  fitFrame();
 }
 
 const deck = [];
@@ -224,12 +275,12 @@ function tick() {
     shown: shown(),
     remaining: sim.remaining,
     finished: sim.done,
-    paused: paused ? (where === 'raid' ? 'in a raid' : 'in a dungeon') : null,
+    paused: paused ? (where === 'raid' ? say('inRaid', 'in a raid') : say('inDungeon', 'in a dungeon')) : null,
     snoozed: sim.snoozed,
     due: !shown() && sim.elapsed >= interval && $('combat').checked,
     left,
     waitForGhost: waitingGhost && !shown(),
-  }).join(' · ');
+  }, locale).join(' · ');
 }
 
 let last = performance.now();
@@ -250,13 +301,13 @@ function animate(now) {
     if (sim.remaining !== null) {
       sim.remaining -= dt;
       if (sim.remaining > 0) {
-        setBar(D.timing.duration - sim.remaining, `${Math.ceil(sim.remaining)}s`);
+        setBar(D.timing.duration - sim.remaining, say('secondsLeft', '%ds', Math.ceil(sim.remaining)));
       } else {
         sim.remaining = null;
         sim.elapsed = 0;
         sim.done = true;
-        setBar(D.timing.duration, 'Well done, champion!');
-        $('start').textContent = 'Done';
+        setBar(D.timing.duration, say('wellDone', 'Well done, champion!'));
+        $('start').textContent = say('done', 'Done');
         $('start').disabled = false;
       }
     }
@@ -276,7 +327,6 @@ async function reload() {
     deck.length = 0; // the reloaded exercises are new objects; the old deck would play stale ones
     $('error').hidden = true;
     $('picker').replaceChildren(...D.exercises.map((e) => new Option(e.name, e.id)));
-    $('snooze').textContent = `Snooze ${D.timing.snooze} min`;
     if (first) {
       $('interval').value = D.defaults.interval;
       $('pauseRaid').checked = D.defaults.pauseInRaid;
@@ -337,6 +387,24 @@ function deathChoice() {
   return [$('dieWorld').checked, $('dieWorldGhost').checked];
 }
 
+const LOCALE_CODES = ['enUS', 'deDE', 'frFR', 'esES', 'esMX', 'itIT', 'ptBR', 'ruRU', 'koKR', 'zhCN', 'zhTW'];
+const locales = {};
+
+async function loadLocales() {
+  await Promise.all(LOCALE_CODES.map(async (code) => {
+    const res = await fetch(`../ForeverExercise/Locales/${code}.lua`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${code}.lua: HTTP ${res.status}`);
+    locales[code] = parseLocale(await res.text()).table;
+  }));
+  locale = locales[$('lang').value] || locales.enUS;
+}
+
+$('lang').onchange = () => {
+  locale = locales[$('lang').value];
+  if (shown()) render();
+  else fitFrame();
+};
+
 $('die').onclick = () => {
   const [enabled, ghostsOnly] = deathChoice();
   const reaction = deathReaction(enabled, ghostsOnly, null);
@@ -349,7 +417,10 @@ $('release').onclick = () => {
   waitingGhost = false;
 };
 
-reload();
+loadLocales().then(reload).catch((e) => {
+  $('error').textContent = e.message;
+  $('error').hidden = false;
+});
 setInterval(reload, 1000);
 setInterval(tick, 1000);
 requestAnimationFrame(animate);

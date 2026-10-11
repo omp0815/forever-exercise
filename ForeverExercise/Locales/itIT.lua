@@ -1,0 +1,129 @@
+local _, ns = ...
+ns.locales = ns.locales or {}
+ns.locales.itIT = {
+    title = "Forever Exercise",
+    notes = "Ti ricorda di fare un breve esercizio alla scrivania di tanto in tanto. /fex",
+
+    ready = "Pronto? %d secondi",
+    start = "Inizia",
+    done = "Fatto",
+    another = "Un altro",
+    snooze = "Posponi %d min",
+    skip = "Salta",
+    wellDone = "Ben fatto, campione!",
+    secondsLeft = "%ds",
+    combatChat = "finisci prima il combattimento, campione.",
+
+    exercising = "In esercizio, %ds rimasti",
+    exerciseFinished = "Esercizio finito",
+    exerciseReady = "Esercizio pronto",
+    paused = "In pausa %s",
+    pausedSnoozed = "In pausa %s, posticipato",
+    resumes = "Riprende con %s rimasti",
+    dueCombat = "È ora, in attesa che finisca il combattimento",
+    snoozedNext = "Posticipato, prossimo esercizio tra %s",
+    nextExercise = "Prossimo esercizio tra %s",
+    deathWaits = "L'esercizio alla morte attende che liberi lo spirito",
+    inRaid = "durante un'incursione",
+    inDungeon = "durante una spedizione",
+    clickSettings = "Clicca per aprire le impostazioni. Trascina per spostare.",
+
+    reminderInterval = "Intervallo promemoria",
+    reminderIntervalTip = "Minuti di gioco tra un promemoria di esercizio e l'altro.",
+    minutes = "%d min",
+    pauseInRaids = "Pausa in incursioni",
+    pauseInRaidsTip = "Ferma il timer mentre sei in un'incursione. Riprende quando esci.",
+    pauseInDungeons = "Pausa in spedizioni",
+    pauseInDungeonsTip = "Ferma il timer mentre sei in una spedizione. Riprende quando esci.",
+    exerciseOnDeath = "Esercizio alla morte",
+    exerciseOnDeathTip = "Mostra un esercizio quando muori nel mondo, in un campo di battaglia o in un'arena.",
+    exerciseOnDungeonDeath = "Alla morte in spedizione",
+    exerciseOnDungeonDeathTip = "Mostra un esercizio quando muori in una spedizione. Le incursioni hanno un'opzione a parte.",
+    exerciseOnRaidDeath = "Alla morte in incursione",
+    exerciseOnRaidDeathTip = "Mostra un esercizio quando muori in un'incursione.",
+    onlyGhost = "Solo da fantasma",
+    onlyGhostTip = "Aspetta che liberi lo spirito, invece di mostrare l'esercizio sul cadavere.",
+
+    exercises = {
+        neck = {
+            name = "Inclinazioni del collo",
+            flavor = "Anche un grifone guarda da entrambe le parti prima di atterrare.",
+            steps = {
+                "Siediti dritto, spalle rilassate, sguardo in avanti.",
+                "Inclina lentamente un orecchio verso la spalla. Tieni 5 secondi.",
+                "Torna al centro, poi inclina dall'altro lato. Tieni 5 secondi.",
+                "Ripeti due volte per lato. Non forzare mai l'allungamento.",
+            },
+        },
+        shrugs = {
+            name = "Scrollate di spalle",
+            flavor = "Scrollati di dosso l'ultima disfatta.",
+            steps = {
+                "Siediti dritto e lascia penzolare le braccia.",
+                "Solleva entrambe le spalle verso le orecchie. Tieni 2 secondi.",
+                "Lasciale cadere in basso e leggermente indietro. Espira.",
+                "Ripeti 10 volte.",
+            },
+        },
+        sideStretch = {
+            name = "Allungamento laterale in alto",
+            flavor = "Allungati come se il bottino fosse appena caduto.",
+            steps = {
+                "Siediti dritto e allunga entrambe le braccia sopra la testa, palmi uniti.",
+                "Inclinati lentamente da un lato finché non senti l'allungamento. Tieni 5 secondi.",
+                "Torna al centro, poi inclinati dall'altro lato. Tieni 5 secondi.",
+                "Tieni le anche ben piantate sul sedile. Ripeti due volte.",
+            },
+        },
+        chestOpener = {
+            name = "Apertura del petto",
+            flavor = "Stai fiero, campione. Azeroth ti osserva.",
+            steps = {
+                "Alzati, piedi alla larghezza dei fianchi.",
+                "Intreccia le dita dietro la schiena.",
+                "Distendi le braccia, stringi le scapole e solleva il petto. Tieni 15 secondi.",
+                "Rilascia, ruota le spalle e ripeti una volta.",
+            },
+        },
+        legExtensions = {
+            name = "Estensioni delle gambe da seduto",
+            flavor = "Le tue gambe sono assenti da troppo tempo.",
+            steps = {
+                "Siediti dritto sul bordo del sedile, mani sulle cosce.",
+                "Distendi una gamba in orizzontale, con le punte dei piedi tirate verso di te. Tieni 3 secondi.",
+                "Abbassala lentamente, poi solleva l'altra gamba.",
+                "Continua ad alternare per tutti i 30 secondi.",
+            },
+        },
+        chairSquats = {
+            name = "Accosciate con la sedia",
+            flavor = "Sorgi, campione! La sedia può attendere.",
+            steps = {
+                "Siediti sul bordo della sedia, piedi ben appoggiati a terra e alla larghezza dei fianchi.",
+                "Allunga le braccia in avanti e inclina il petto sopra le ginocchia.",
+                "Spingi sui talloni e alzati ben dritto.",
+                "Siediti di nuovo lentamente. Ripeti da 8 a 10 volte.",
+            },
+        },
+        calfRaises = {
+            name = "Sollevamenti sui polpacci",
+            flavor = "In punta di piedi, come se sgattaiolassi oltre un'élite.",
+            steps = {
+                "In piedi alla scrivania, con le punte delle dita appoggiate sul piano.",
+                "Sollevati sugli avampiedi.",
+                "Tieni 2 secondi in alto.",
+                "Scendi lentamente. Ripeti 15 volte.",
+            },
+        },
+        march = {
+            name = "Marcia sul posto",
+            flavor = "Marcia come se fossi in ritardo per l'incursione.",
+            steps = {
+                "Stai dritto accanto alla scrivania.",
+                "Solleva un ginocchio all'altezza del fianco e oscilla in avanti il braccio opposto.",
+                "Abbassalo e solleva l'altro ginocchio.",
+                "Mantieni un ritmo costante e svelto per 30 secondi.",
+            },
+        },
+    },
+}

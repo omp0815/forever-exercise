@@ -1,0 +1,129 @@
+local _, ns = ...
+ns.locales = ns.locales or {}
+ns.locales.deDE = {
+    title = "Forever Exercise",
+    notes = "Erinnert dich ab und zu an eine kurze Schreibtischübung. /fex",
+
+    ready = "Bereit? %d Sekunden",
+    start = "Start",
+    done = "Fertig",
+    another = "Weitere",
+    snooze = "Später %d Min",
+    skip = "Auslassen",
+    wellDone = "Gut gemacht, Held!",
+    secondsLeft = "%ds",
+    combatChat = "beende zuerst den Kampf, Held.",
+
+    exercising = "Übung läuft, noch %ds",
+    exerciseFinished = "Übung beendet",
+    exerciseReady = "Übung bereit",
+    paused = "Pausiert %s",
+    pausedSnoozed = "Pausiert %s, verschoben",
+    resumes = "Setzt mit noch %s fort",
+    dueCombat = "Jetzt fällig, wartet auf das Ende des Kampfes",
+    snoozedNext = "Verschoben, nächste Übung in %s",
+    nextExercise = "Nächste Übung in %s",
+    deathWaits = "Die Todesübung wartet, bis du deinen Geist freilässt",
+    inRaid = "im Schlachtzug",
+    inDungeon = "im Dungeon",
+    clickSettings = "Klicken, um die Einstellungen zu öffnen. Ziehen, um zu verschieben.",
+
+    reminderInterval = "Erinnerungsintervall",
+    reminderIntervalTip = "Minuten Spielzeit zwischen den Übungserinnerungen.",
+    minutes = "%d Min",
+    pauseInRaids = "Pause in Schlachtzügen",
+    pauseInRaidsTip = "Stoppt den Timer, solange du in einem Schlachtzug bist. Er wird fortgesetzt, wenn du ihn verlässt.",
+    pauseInDungeons = "Pause in Dungeons",
+    pauseInDungeonsTip = "Stoppt den Timer, solange du in einem Dungeon bist. Er wird fortgesetzt, wenn du ihn verlässt.",
+    exerciseOnDeath = "Beim Tod üben",
+    exerciseOnDeathTip = "Zeigt eine Übung, wenn du in der offenen Welt, einem Schlachtfeld oder einer Arena stirbst.",
+    exerciseOnDungeonDeath = "Beim Tod im Dungeon üben",
+    exerciseOnDungeonDeathTip = "Zeigt eine Übung, wenn du in einem Dungeon stirbst. Schlachtzüge haben eine eigene Option.",
+    exerciseOnRaidDeath = "Beim Tod im Schlachtzug üben",
+    exerciseOnRaidDeathTip = "Zeigt eine Übung, wenn du in einem Schlachtzug stirbst.",
+    onlyGhost = "Nur als Geist",
+    onlyGhostTip = "Wartet, bis du deinen Geist freilässt, statt die Übung an der Leiche zu zeigen.",
+
+    exercises = {
+        neck = {
+            name = "Nackenneigen",
+            flavor = "Selbst ein Greif schaut vor der Landung in beide Richtungen.",
+            steps = {
+                "Sitz aufrecht, Schultern locker, Blick nach vorn.",
+                "Neige langsam ein Ohr zur Schulter. Halte 5 Sekunden.",
+                "Kehr zur Mitte zurück und neige dann zur anderen Seite. Halte 5 Sekunden.",
+                "Wiederhole jede Seite zweimal. Erzwinge die Dehnung nie.",
+            },
+        },
+        shrugs = {
+            name = "Schulterzucken",
+            flavor = "Tu den letzten Fehlschlag mit einem Achselzucken ab.",
+            steps = {
+                "Sitz aufrecht und lass die Arme locker hängen.",
+                "Zieh beide Schultern zu den Ohren hoch. Halte 2 Sekunden.",
+                "Lass sie nach unten und leicht nach hinten sinken. Atme aus.",
+                "Wiederhole das 10-mal.",
+            },
+        },
+        sideStretch = {
+            name = "Überkopf-Seitdehnung",
+            flavor = "Streck dich, als wäre gerade Beute gefallen.",
+            steps = {
+                "Sitz aufrecht und streck beide Arme über den Kopf, Handflächen aneinander.",
+                "Neige dich langsam zur Seite, bis du die Dehnung spürst. Halte 5 Sekunden.",
+                "Kehr zur Mitte zurück und neige dich dann zur anderen Seite. Halte 5 Sekunden.",
+                "Halt die Hüften auf dem Sitz. Wiederhole das zweimal.",
+            },
+        },
+        chestOpener = {
+            name = "Brustöffner",
+            flavor = "Steh stolz, Held. Azeroth schaut zu.",
+            steps = {
+                "Steh auf, die Füße hüftbreit auseinander.",
+                "Verschränke die Finger hinter dem Rücken.",
+                "Streck die Arme, zieh die Schulterblätter zusammen und heb die Brust an. Halte 15 Sekunden.",
+                "Lass los, kreise die Schultern und wiederhole einmal.",
+            },
+        },
+        legExtensions = {
+            name = "Beinstrecken im Sitzen",
+            flavor = "Deine Beine waren lange genug nicht an der Tastatur.",
+            steps = {
+                "Sitz aufrecht vorn auf dem Sitz, die Hände auf den Oberschenkeln.",
+                "Streck ein Bein waagerecht aus, die Zehen zu dir gezogen. Halte 3 Sekunden.",
+                "Senke es langsam und heb dann das andere Bein.",
+                "Wechsle die vollen 30 Sekunden lang ab.",
+            },
+        },
+        chairSquats = {
+            name = "Stuhlkniebeugen",
+            flavor = "Erhebe dich, Held! Der Stuhl kann warten.",
+            steps = {
+                "Sitz vorn auf dem Stuhl, die Füße flach und hüftbreit.",
+                "Streck die Arme nach vorn und lehne die Brust über die Knie.",
+                "Drück dich aus den Fersen hoch und steh aufrecht.",
+                "Setz dich langsam wieder hin. Wiederhole das 8- bis 10-mal.",
+            },
+        },
+        calfRaises = {
+            name = "Wadenheben",
+            flavor = "Geh auf Zehenspitzen, als würdest du an einer Elite vorbeischleichen.",
+            steps = {
+                "Steh am Schreibtisch und leg die Fingerspitzen darauf ab.",
+                "Komm auf die Fußballen hoch.",
+                "Halte oben 2 Sekunden.",
+                "Senke langsam ab. Wiederhole das 15-mal.",
+            },
+        },
+        march = {
+            name = "Marsch auf der Stelle",
+            flavor = "Marschier, als kämst du zu spät zum Schlachtzug.",
+            steps = {
+                "Steh aufrecht neben dem Schreibtisch.",
+                "Heb ein Knie Richtung Hüfthöhe und schwing den gegenüberliegenden Arm nach vorn.",
+                "Senke es ab und heb das andere Knie.",
+                "Halt 30 Sekunden lang einen gleichmäßigen, zügigen Rhythmus.",
+            },
+        },
+    },
+}

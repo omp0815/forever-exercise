@@ -1,0 +1,129 @@
+local _, ns = ...
+ns.locales = ns.locales or {}
+ns.locales.ptBR = {
+    title = "Forever Exercise",
+    notes = "Lembra você de fazer um exercício curto de mesa de vez em quando. /fex",
+
+    ready = "Pronto? %d segundos",
+    start = "Começar",
+    done = "Feito",
+    another = "Outro",
+    snooze = "Adiar %d min",
+    skip = "Pular",
+    wellDone = "Muito bem, campeão!",
+    secondsLeft = "%ds",
+    combatChat = "termine a luta primeiro, campeão.",
+
+    exercising = "Exercitando, %ds restantes",
+    exerciseFinished = "Exercício concluído",
+    exerciseReady = "Exercício pronto",
+    paused = "Pausado %s",
+    pausedSnoozed = "Pausado %s, adiado",
+    resumes = "Retoma com %s restantes",
+    dueCombat = "Já é hora, aguardando o fim do combate",
+    snoozedNext = "Adiado, próximo exercício em %s",
+    nextExercise = "Próximo exercício em %s",
+    deathWaits = "O exercício ao morrer espera até você libertar o espírito",
+    inRaid = "numa raide",
+    inDungeon = "numa masmorra",
+    clickSettings = "Clique para abrir as configurações. Arraste para mover.",
+
+    reminderInterval = "Intervalo do lembrete",
+    reminderIntervalTip = "Minutos de jogo entre os lembretes de exercício.",
+    minutes = "%d min",
+    pauseInRaids = "Pausar em raides",
+    pauseInRaidsTip = "Pausa o temporizador enquanto você está numa raide. Ele retoma quando você sai.",
+    pauseInDungeons = "Pausar em masmorras",
+    pauseInDungeonsTip = "Pausa o temporizador enquanto você está numa masmorra. Ele retoma quando você sai.",
+    exerciseOnDeath = "Exercício ao morrer",
+    exerciseOnDeathTip = "Mostra um exercício quando você morre no mundo, num campo de batalha ou numa arena.",
+    exerciseOnDungeonDeath = "Exercício ao morrer numa masmorra",
+    exerciseOnDungeonDeathTip = "Mostra um exercício quando você morre numa masmorra. Raides têm opção própria.",
+    exerciseOnRaidDeath = "Exercício ao morrer numa raide",
+    exerciseOnRaidDeathTip = "Mostra um exercício quando você morre numa raide.",
+    onlyGhost = "Só enquanto fantasma",
+    onlyGhostTip = "Espera até você libertar o espírito, em vez de mostrar o exercício no cadáver.",
+
+    exercises = {
+        neck = {
+            name = "Inclinação do Pescoço",
+            flavor = "Até um grifo olha para os dois lados antes de pousar.",
+            steps = {
+                "Sente-se com a coluna reta, ombros relaxados, olhos à frente.",
+                "Incline devagar uma orelha em direção ao ombro. Segure 5 segundos.",
+                "Volte ao centro e incline para o outro lado. Segure 5 segundos.",
+                "Repita cada lado duas vezes. Nunca force o alongamento.",
+            },
+        },
+        shrugs = {
+            name = "Encolhimento de Ombros",
+            flavor = "Dê de ombros para a última derrota na raide.",
+            steps = {
+                "Sente-se com a coluna reta e deixe os braços soltos.",
+                "Puxe os dois ombros em direção às orelhas. Segure 2 segundos.",
+                "Deixe-os descer e ir um pouco para trás. Solte o ar.",
+                "Repita 10 vezes.",
+            },
+        },
+        sideStretch = {
+            name = "Alongamento Lateral Acima da Cabeça",
+            flavor = "Alcance como se o saque acabasse de cair.",
+            steps = {
+                "Sente-se com a coluna reta e leve os dois braços acima da cabeça, palmas juntas.",
+                "Incline devagar para um lado até sentir o alongamento. Segure 5 segundos.",
+                "Volte ao centro e incline para o outro lado. Segure 5 segundos.",
+                "Mantenha o quadril firme no assento. Repita duas vezes.",
+            },
+        },
+        chestOpener = {
+            name = "Abertura de Peito",
+            flavor = "Empine o peito, campeão. Azeroth está olhando.",
+            steps = {
+                "Levante-se, com os pés na largura do quadril.",
+                "Entrelace os dedos atrás das costas.",
+                "Estique os braços, aperte as omoplatas e erga o peito. Segure 15 segundos.",
+                "Solte, role os ombros e repita uma vez.",
+            },
+        },
+        legExtensions = {
+            name = "Extensões de Pernas Sentadas",
+            flavor = "Suas pernas estão LDT há tempo demais.",
+            steps = {
+                "Sente-se na ponta do assento, coluna reta, mãos nas coxas.",
+                "Estique uma perna até a horizontal, com os dedos do pé puxados para você. Segure 3 segundos.",
+                "Baixe devagar e levante a outra perna.",
+                "Continue alternando pelos 30 segundos.",
+            },
+        },
+        chairSquats = {
+            name = "Agachamento na Cadeira",
+            flavor = "Erga-se, campeão! A cadeira pode esperar.",
+            steps = {
+                "Sente-se na ponta da cadeira, pés apoiados no chão e na largura do quadril.",
+                "Estenda os braços à frente e incline o peito sobre os joelhos.",
+                "Empurre pelos calcanhares e fique de pé, coluna reta.",
+                "Sente-se de novo, devagar. Repita de 8 a 10 vezes.",
+            },
+        },
+        calfRaises = {
+            name = "Elevação de Panturrilha",
+            flavor = "Na ponta dos pés, como quem passa de fininho por um elite.",
+            steps = {
+                "Fique de pé junto à mesa e apoie as pontas dos dedos nela.",
+                "Suba na ponta dos pés.",
+                "Segure 2 segundos no alto.",
+                "Desça devagar. Repita 15 vezes.",
+            },
+        },
+        march = {
+            name = "Marcha no Lugar",
+            flavor = "Marche como se estivesse atrasado para a raide.",
+            steps = {
+                "Fique com a coluna reta ao lado da mesa.",
+                "Erga um joelho até a altura do quadril e balance o braço oposto para a frente.",
+                "Baixe e erga o outro joelho.",
+                "Mantenha um ritmo firme e rápido por 30 segundos.",
+            },
+        },
+    },
+}

@@ -1,0 +1,129 @@
+local _, ns = ...
+ns.locales = ns.locales or {}
+ns.locales.zhTW = {
+    title = "Forever Exercise",
+    notes = "每隔一段時間提醒你做一段短暫的桌前運動。/fex",
+
+    ready = "準備好了嗎？%d 秒",
+    start = "開始",
+    done = "完成",
+    another = "再來",
+    snooze = "延後 %d 分",
+    skip = "跳過",
+    wellDone = "做得好，勇士！",
+    secondsLeft = "%d秒",
+    combatChat = "先打完這場，勇士。",
+
+    exercising = "運動中，還剩 %d 秒",
+    exerciseFinished = "運動結束",
+    exerciseReady = "可以運動了",
+    paused = "暫停%s",
+    pausedSnoozed = "暫停%s，已延後",
+    resumes = "恢復時還剩 %s",
+    dueCombat = "時間到了，正在等戰鬥結束",
+    snoozedNext = "已延後，下次運動還有 %s",
+    nextExercise = "下次運動還有 %s",
+    deathWaits = "死亡運動會等到你釋放靈魂",
+    inRaid = "在團本中",
+    inDungeon = "在地城中",
+    clickSettings = "點擊開啟設定。拖曳可移動。",
+
+    reminderInterval = "提醒間隔",
+    reminderIntervalTip = "兩次運動提醒之間相隔的遊戲分鐘數。",
+    minutes = "%d 分鐘",
+    pauseInRaids = "團本中暫停",
+    pauseInRaidsTip = "在團本內停止計時，離開後恢復。",
+    pauseInDungeons = "地城中暫停",
+    pauseInDungeonsTip = "在地城內停止計時，離開後恢復。",
+    exerciseOnDeath = "死亡時運動",
+    exerciseOnDeathTip = "在世界、戰場或競技場中死亡時顯示運動。",
+    exerciseOnDungeonDeath = "地城死亡時運動",
+    exerciseOnDungeonDeathTip = "在地城中死亡時顯示運動。團本有自己的選項。",
+    exerciseOnRaidDeath = "團本死亡時運動",
+    exerciseOnRaidDeathTip = "在團本中死亡時顯示運動。",
+    onlyGhost = "只在幽靈時",
+    onlyGhostTip = "等到你釋放靈魂再顯示，而不是在屍體上就出現。",
+
+    exercises = {
+        neck = {
+            name = "頸部側傾",
+            flavor = "就連獅鷲降落前也會左右看。",
+            steps = {
+                "坐直，雙肩放鬆，眼睛看向前方。",
+                "慢慢把一側耳朵靠向肩膀，停留 5 秒。",
+                "回到正中，再靠向另一側，停留 5 秒。",
+                "兩側各做兩次。不要勉強拉伸。",
+            },
+        },
+        shrugs = {
+            name = "聳肩",
+            flavor = "把上次滅團聳掉吧。",
+            steps = {
+                "坐直，雙臂自然垂下。",
+                "雙肩朝耳朵提起，停留 2 秒。",
+                "讓雙肩落下並微微向後，同時吐氣。",
+                "重複 10 次。",
+            },
+        },
+        sideStretch = {
+            name = "舉臂側伸",
+            flavor = "伸手去撈剛掉下來的戰利品。",
+            steps = {
+                "坐直，雙臂舉過頭頂，掌心相合。",
+                "慢慢側彎，直到感到拉伸，停留 5 秒。",
+                "回到正中，再側向另一邊，停留 5 秒。",
+                "臀部貼住座位。重複兩次。",
+            },
+        },
+        chestOpener = {
+            name = "擴胸",
+            flavor = "挺起胸膛，勇士。艾澤拉斯正看著你。",
+            steps = {
+                "站起來，雙腳與臀同寬。",
+                "雙手在背後十指交扣。",
+                "伸直手臂，夾緊肩胛骨並挺胸，停留 15 秒。",
+                "放開，轉動肩膀，再做一次。",
+            },
+        },
+        legExtensions = {
+            name = "坐姿伸腿",
+            flavor = "雙腿暫離夠久了。",
+            steps = {
+                "靠近椅面前緣坐直，雙手放在大腿上。",
+                "一腿伸至水平，腳尖朝自己勾回，停留 3 秒。",
+                "慢慢放下，再抬起另一腿。",
+                "在整整 30 秒內交替進行。",
+            },
+        },
+        chairSquats = {
+            name = "椅子深蹲",
+            flavor = "起身吧，勇士！椅子可以等。",
+            steps = {
+                "坐在椅子前緣，雙腳踩平、與臀同寬。",
+                "雙臂向前伸，胸口往膝蓋方向傾。",
+                "以腳跟發力，站直身體。",
+                "慢慢坐回去。重複 8 到 10 次。",
+            },
+        },
+        calfRaises = {
+            name = "小腿提踵",
+            flavor = "踮起腳尖，像要溜過精英。",
+            steps = {
+                "站在桌前，指尖輕放在桌上。",
+                "踮起腳，重心移到前腳掌。",
+                "在最高點停留 2 秒。",
+                "慢慢放下。重複 15 次。",
+            },
+        },
+        march = {
+            name = "原地踏步",
+            flavor = "踏步吧，像趕不上團本。",
+            steps = {
+                "在桌旁站直。",
+                "一膝抬到髖部高度，對側手臂向前擺。",
+                "放下，再抬起另一膝。",
+                "以穩定輕快的節奏持續 30 秒。",
+            },
+        },
+    },
+}

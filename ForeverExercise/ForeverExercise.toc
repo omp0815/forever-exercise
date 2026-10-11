@@ -1,9 +1,40 @@
 ## Interface: 16001
 ## Title: Forever Exercise
 ## Notes: Reminds you to do a short desk exercise every so often. /fex
+## Title-deDE: Forever Exercise
+## Notes-deDE: Erinnert dich ab und zu an eine kurze Schreibtischübung. /fex
+## Title-esES: Forever Exercise
+## Notes-esES: Te recuerda hacer un breve ejercicio de escritorio de vez en cuando. /fex
+## Title-esMX: Forever Exercise
+## Notes-esMX: Te recuerda hacer un ejercicio corto de escritorio de vez en cuando. /fex
+## Title-frFR: Forever Exercise
+## Notes-frFR: Vous rappelle de faire un court exercice de bureau de temps en temps. /fex
+## Title-itIT: Forever Exercise
+## Notes-itIT: Ti ricorda di fare un breve esercizio alla scrivania di tanto in tanto. /fex
+## Title-koKR: Forever Exercise
+## Notes-koKR: 틈틈이 짧은 책상 운동을 하라고 알려 줍니다. /fex
+## Title-ptBR: Forever Exercise
+## Notes-ptBR: Lembra você de fazer um exercício curto de mesa de vez em quando. /fex
+## Title-ruRU: Forever Exercise
+## Notes-ruRU: Время от времени напоминает сделать короткую зарядку за столом. /fex
+## Title-zhCN: Forever Exercise
+## Notes-zhCN: 每隔一段时间提醒你做一段短暂的桌前运动。/fex
+## Title-zhTW: Forever Exercise
+## Notes-zhTW: 每隔一段時間提醒你做一段短暫的桌前運動。/fex
 ## Version: 0.1.0
 ## IconTexture: Interface\Icons\INV_Misc_PocketWatch_01
 ## SavedVariables: ForeverExerciseDB
 
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\esMX.lua
+Locales\frFR.lua
+Locales\itIT.lua
+Locales\koKR.lua
+Locales\ptBR.lua
+Locales\ruRU.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
 Exercises.lua
 ForeverExercise.lua

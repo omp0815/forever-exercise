@@ -56,6 +56,14 @@ function parseLuaData(src) {
   return ns;
 }
 
+// A locale file assigns ns.locales.<code> = { ... }. Same literal rules as Exercises.lua.
+function parseLocale(src) {
+  const found = src.match(/ns\.locales\.(\w+)\s*=\s*/);
+  if (!found) throw new Error('locale file has no ns.locales.<code> assignment');
+  const wrapped = `ns.locales = ${src.slice(found.index + found[0].length)}`;
+  return { code: found[1], table: parseLuaData(wrapped).locales };
+}
+
 // Same pose resolution as ForeverExercise.lua: each pose overrides its base.
 function loadData(src) {
   const ns = parseLuaData(src);
@@ -85,22 +93,33 @@ function nextFromDeck(deck, exercises, current, random = Math.random) {
 // PLAYER_ALIVE fires. Mirrors OnDeath/OnReleased in ForeverExercise.lua.
 // Lines for the minimap tooltip. `paused` is "in a raid" or "in a dungeon".
 // `left` is seconds. Mirrors TooltipLines in ForeverExercise.lua.
-function statusLines(s) {
+function fill(template, ...args) {
+  let n = 0;
+  return String(template).replace(/%[ds]/g, () => args[n++]);
+}
+
+// L, when passed, is a locale table. Without it the lines stay English, which is what the checks assert.
+function statusLines(s, L) {
   const clock = (seconds) => {
     seconds = Math.max(0, Math.ceil(seconds));
     return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
   };
+  const line = (key, fallback, ...args) => fill(L && L[key] ? L[key] : fallback, ...args);
   if (s.shown) {
-    if (s.remaining != null) return [`Exercising, ${Math.ceil(s.remaining)}s left`];
-    if (s.finished) return ['Exercise finished'];
-    return ['Exercise ready'];
+    if (s.remaining != null) return [line('exercising', 'Exercising, %ds left', Math.ceil(s.remaining))];
+    if (s.finished) return [line('exerciseFinished', 'Exercise finished')];
+    return [line('exerciseReady', 'Exercise ready')];
   }
   if (s.paused) {
-    return [`Paused ${s.paused}${s.snoozed ? ', snoozed' : ''}`, `Resumes with ${clock(s.left)} left`];
+    const key = s.snoozed ? 'pausedSnoozed' : 'paused';
+    const fallback = s.snoozed ? 'Paused %s, snoozed' : 'Paused %s';
+    return [line(key, fallback, s.paused), line('resumes', 'Resumes with %s left', clock(s.left))];
   }
-  if (s.due) return ['Due now, waiting for combat to end'];
-  const lines = [s.snoozed ? `Snoozed, next exercise in ${clock(s.left)}` : `Next exercise in ${clock(s.left)}`];
-  if (s.waitForGhost) lines.push('Death exercise waits until you release your spirit');
+  if (s.due) return [line('dueCombat', 'Due now, waiting for combat to end')];
+  const lines = [s.snoozed
+    ? line('snoozedNext', 'Snoozed, next exercise in %s', clock(s.left))
+    : line('nextExercise', 'Next exercise in %s', clock(s.left))];
+  if (s.waitForGhost) lines.push(line('deathWaits', 'Death exercise waits until you release your spirit'));
   return lines;
 }
 
@@ -109,4 +128,4 @@ function deathReaction(enabled, ghostsOnly, becameGhost) {
   return enabled && ghostsOnly && becameGhost ? 'show' : 'ignore';
 }
 
-if (typeof module !== 'undefined') module.exports = { parseLuaData, loadData, nextFromDeck, deathReaction, statusLines };
+if (typeof module !== 'undefined') module.exports = { parseLuaData, loadData, parseLocale, nextFromDeck, deathReaction, statusLines };

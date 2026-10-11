@@ -1,8 +1,8 @@
 // node browser/check.js — validates ForeverExercise/Exercises.lua
 const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
+const { readFileSync, readdirSync } = require('node:fs');
 const { join } = require('node:path');
-const { loadData, nextFromDeck, deathReaction, statusLines } = require('./luadata.js');
+const { loadData, parseLocale, nextFromDeck, deathReaction, statusLines } = require('./luadata.js');
 
 const D = loadData(readFileSync(join(__dirname, '../ForeverExercise/Exercises.lua'), 'utf8'));
 const joints = new Set(D.bones.flat());
@@ -71,4 +71,34 @@ assert.deepEqual(statusLines({ shown: true, remaining: 12.2 }), ['Exercising, 13
 assert.deepEqual(statusLines({ shown: true, finished: true }), ['Exercise finished']);
 assert.deepEqual(statusLines({ shown: true }), ['Exercise ready']);
 
-console.log(`ok: ${D.exercises.length} exercises`);
+const LOCALES = join(__dirname, '../ForeverExercise/Locales');
+const tokens = (s) => (String(s).match(/%[ds]/g) || []).join(',');
+
+function sameShape(english, translated, path, code) {
+  if (typeof english === 'string') {
+    assert.equal(typeof translated, 'string', `${code} ${path} should be text`);
+    assert.equal(tokens(translated), tokens(english), `${code} ${path} format tokens`);
+    return;
+  }
+  if (Array.isArray(english)) {
+    assert.ok(Array.isArray(translated), `${code} ${path} should be a list`);
+    assert.equal(translated.length, english.length, `${code} ${path} length`);
+    english.forEach((item, i) => sameShape(item, translated[i], `${path}[${i}]`, code));
+    return;
+  }
+  assert.deepEqual(Object.keys(translated).sort(), Object.keys(english).sort(), `${code} ${path} keys`);
+  for (const key of Object.keys(english)) sameShape(english[key], translated[key], `${path}.${key}`, code);
+}
+
+const english = parseLocale(readFileSync(join(LOCALES, 'enUS.lua'), 'utf8'));
+assert.equal(english.code, 'enUS');
+const codes = readdirSync(LOCALES).filter((name) => name.endsWith('.lua')).map((name) => name.slice(0, -4)).sort();
+assert.deepEqual(codes, ['deDE', 'enUS', 'esES', 'esMX', 'frFR', 'itIT', 'koKR', 'ptBR', 'ruRU', 'zhCN', 'zhTW']);
+for (const code of codes) {
+  if (code === 'enUS') continue;
+  const locale = parseLocale(readFileSync(join(LOCALES, `${code}.lua`), 'utf8'));
+  assert.equal(locale.code, code);
+  sameShape(english.table, locale.table, code, code);
+}
+
+console.log(`ok: ${D.exercises.length} exercises, ${codes.length} locales`);

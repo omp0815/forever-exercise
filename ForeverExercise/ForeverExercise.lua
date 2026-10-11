@@ -1,9 +1,25 @@
 local ADDON, ns = ...
 
+local function ApplyLocale()
+    local code = GetLocale()
+    if code == "enGB" then code = "enUS" end
+    ns.L = setmetatable(ns.locales[code] or {}, { __index = ns.locales.enUS })
+    for _, exercise in ipairs(ns.exercises) do
+        local translated = ns.L.exercises[exercise.id]
+        if translated then
+            exercise.name = translated.name
+            exercise.flavor = translated.flavor
+            exercise.steps = translated.steps
+        end
+    end
+end
+ApplyLocale()
+
+local L = ns.L
 local S = ns.style
 local DOT = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
 local ICON = "Interface\\Icons\\INV_Misc_PocketWatch_01"
-local PREFIX = "|cffffd100Forever Exercise:|r "
+local PREFIX = "|cffffd100" .. L.title .. ":|r "
 
 local db, category
 local frame, big, stepsText, bar, barText, startButton
@@ -141,8 +157,8 @@ end
 local function SetIdle()
     remaining = nil
     bar:SetValue(0)
-    barText:SetText(("Ready? %d seconds"):format(ns.timing.duration))
-    startButton:SetText("Start")
+    barText:SetText(L.ready:format(ns.timing.duration))
+    startButton:SetText(L.start)
     startButton:Enable()
 end
 
@@ -205,14 +221,14 @@ local function Countdown(_, dt)
     remaining = remaining - dt
     if remaining > 0 then
         bar:SetValue(ns.timing.duration - remaining)
-        barText:SetText(("%ds"):format(math.ceil(remaining)))
+        barText:SetText(L.secondsLeft:format(math.ceil(remaining)))
         return
     end
     remaining = nil
     elapsed = 0
     bar:SetValue(ns.timing.duration)
-    barText:SetText("Well done, champion!")
-    startButton:SetText("Done")
+    barText:SetText(L.wellDone)
+    startButton:SetText(L.done)
     startButton:Enable()
     Sound(SOUNDKIT.IG_QUEST_LIST_COMPLETE)
 end
@@ -236,7 +252,7 @@ local function Build()
     frame:RegisterForDrag("LeftButton")
     frame:SetScript("OnDragStart", frame.StartMoving)
     frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
-    frame:SetTitle("Forever Exercise")
+    frame:SetTitle(L.title)
     if frame.SetPortraitToAsset then
         frame:SetPortraitToAsset(ICON)
     else
@@ -289,7 +305,7 @@ local function Build()
     barText:SetPoint("CENTER")
     bar:SetScript("OnUpdate", Countdown)
 
-    startButton = Button("Start", 108, function()
+    startButton = Button(L.start, 108, function()
         if bar:GetValue() >= ns.timing.duration then
             frame:Hide()
         else
@@ -298,18 +314,18 @@ local function Build()
         end
     end)
     startButton:SetPoint("BOTTOMLEFT", 6, 4)
-    local another = Button("Another", 108, function()
+    local another = Button(L.another, 108, function()
         PickExercise()
         Render()
     end)
     another:SetPoint("LEFT", startButton, "RIGHT", 4, 0)
-    local snooze = Button(("Snooze %d min"):format(ns.timing.snooze), 108, function()
+    local snooze = Button(L.snooze:format(ns.timing.snooze), 108, function()
         frame:Hide() -- OnHide clears the timer; the snooze is what replaces it
         elapsed = db.interval * 60 - ns.timing.snooze * 60
         snoozed = true
     end)
     snooze:SetPoint("LEFT", another, "RIGHT", 4, 0)
-    local skip = Button("Skip", 108, function()
+    local skip = Button(L.skip, 108, function()
         frame:Hide()
     end)
     skip:SetPoint("LEFT", snooze, "RIGHT", 4, 0)
@@ -334,34 +350,32 @@ end
 
 local function PauseReason()
     local _, kind = IsInInstance()
-    if kind == "raid" and db.pauseInRaid then return "in a raid" end
-    if kind == "party" and db.pauseInDungeon then return "in a dungeon" end
+    if kind == "raid" and db.pauseInRaid then return L.inRaid end
+    if kind == "party" and db.pauseInDungeon then return L.inDungeon end
 end
 
--- Same sentences as statusLines in browser/luadata.js.
+-- Same sentences as statusLines in browser/luadata.js, through L.
 local function TooltipLines()
     if frame:IsShown() then
         if remaining then
-            return { ("Exercising, %ds left"):format(math.ceil(remaining)) }
+            return { L.exercising:format(math.ceil(remaining)) }
         elseif bar:GetValue() >= ns.timing.duration then
-            return { "Exercise finished" }
+            return { L.exerciseFinished }
         end
-        return { "Exercise ready" }
+        return { L.exerciseReady }
     end
     local left = math.max(0, db.interval * 60 - elapsed)
     local reason = PauseReason()
     if reason then
-        local text = "Paused " .. reason
-        if snoozed then text = text .. ", snoozed" end
-        return { text, ("Resumes with %s left"):format(Clock(left)) }
+        local text = snoozed and L.pausedSnoozed:format(reason) or L.paused:format(reason)
+        return { text, L.resumes:format(Clock(left)) }
     end
     if elapsed >= db.interval * 60 and InCombatLockdown() then
-        return { "Due now, waiting for combat to end" }
+        return { L.dueCombat }
     end
-    local lines = { snoozed and ("Snoozed, next exercise in %s"):format(Clock(left))
-        or ("Next exercise in %s"):format(Clock(left)) }
+    local lines = { snoozed and L.snoozedNext:format(Clock(left)) or L.nextExercise:format(Clock(left)) }
     if waitForGhost then
-        lines[#lines + 1] = "Death exercise waits until you release your spirit"
+        lines[#lines + 1] = L.deathWaits
     end
     return lines
 end
@@ -372,11 +386,11 @@ local function RefreshTooltip()
         GameTooltip:SetOwner(minimapButton, "ANCHOR_LEFT")
     end
     GameTooltip:ClearLines()
-    GameTooltip:SetText("Forever Exercise", 1, 0.82, 0)
+    GameTooltip:SetText(L.title, 1, 0.82, 0)
     for _, line in ipairs(TooltipLines()) do
         GameTooltip:AddLine(line, 1, 1, 1, true)
     end
-    GameTooltip:AddLine("Click to open settings. Drag to move.", 0.6, 0.6, 0.6)
+    GameTooltip:AddLine(L.clickSettings, 0.6, 0.6, 0.6)
     GameTooltip:Show()
 end
 
@@ -400,30 +414,24 @@ end
 -- The ghost line sits under its death option and is greyed out while that option is off.
 local function DeathOption(key, name, tooltip)
     local setting, init = Checkbox(key, name, tooltip)
-    local _, ghost = Checkbox(key .. "Ghost", "Only while you are a ghost",
-        "Wait until you release your spirit, instead of showing the exercise on the corpse.")
+    local _, ghost = Checkbox(key .. "Ghost", L.onlyGhost, L.onlyGhostTip)
     ghost:SetParentInitializer(init, function() return setting:GetValue() end)
 end
 
 local function RegisterSettings()
-    category = Settings.RegisterVerticalLayoutCategory("Forever Exercise")
+    category = Settings.RegisterVerticalLayoutCategory(L.title)
     local interval = Settings.RegisterAddOnSetting(category, "ForeverExercise_interval", "interval", db,
-        Settings.VarType.Number, "Reminder interval", ns.defaults.interval)
+        Settings.VarType.Number, L.reminderInterval, ns.defaults.interval)
     local options = Settings.CreateSliderOptions(5, 120, 5)
     options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
-        return ("%d min"):format(value)
+        return L.minutes:format(value)
     end)
-    Settings.CreateSlider(category, interval, options, "Minutes of play between exercise reminders.")
-    Checkbox("pauseInRaid", "Pause in raids",
-        "Stop the timer while you are inside a raid. It resumes when you leave.")
-    Checkbox("pauseInDungeon", "Pause in dungeons",
-        "Stop the timer while you are inside a dungeon. It resumes when you leave.")
-    DeathOption("exerciseOnDeath", "Exercise when you die",
-        "Show an exercise when you die in the world, a battleground or an arena.")
-    DeathOption("exerciseOnDungeonDeath", "Exercise when you die in a dungeon",
-        "Show an exercise when you die in a dungeon. Raids have their own option.")
-    DeathOption("exerciseOnRaidDeath", "Exercise when you die in a raid",
-        "Show an exercise when you die in a raid.")
+    Settings.CreateSlider(category, interval, options, L.reminderIntervalTip)
+    Checkbox("pauseInRaid", L.pauseInRaids, L.pauseInRaidsTip)
+    Checkbox("pauseInDungeon", L.pauseInDungeons, L.pauseInDungeonsTip)
+    DeathOption("exerciseOnDeath", L.exerciseOnDeath, L.exerciseOnDeathTip)
+    DeathOption("exerciseOnDungeonDeath", L.exerciseOnDungeonDeath, L.exerciseOnDungeonDeathTip)
+    DeathOption("exerciseOnRaidDeath", L.exerciseOnRaidDeath, L.exerciseOnRaidDeathTip)
     Settings.RegisterAddOnCategory(category)
 end
 
@@ -515,7 +523,7 @@ SlashCmdList.FOREVEREXERCISE = function(msg)
     if msg:match("^opt") or msg:match("^config") then
         Settings.OpenToCategory(category:GetID())
     elseif InCombatLockdown() then
-        print(PREFIX .. "finish the fight first, champion.")
+        print(PREFIX .. L.combatChat)
     else
         ShowReminder()
     end
