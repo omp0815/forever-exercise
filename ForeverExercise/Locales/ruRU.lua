@@ -2,8 +2,6 @@ local _, ns = ...
 ns.locales = ns.locales or {}
 ns.locales.ruRU = {
     title = "Forever Exercise",
-    notes = "Время от времени напоминает сделать короткую зарядку за столом. /fex",
-
     ready = "Готовы? %d сек",
     start = "Начать",
     done = "Готово",

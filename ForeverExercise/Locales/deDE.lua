@@ -2,8 +2,6 @@ local _, ns = ...
 ns.locales = ns.locales or {}
 ns.locales.deDE = {
     title = "Forever Exercise",
-    notes = "Erinnert dich ab und zu an eine kurze Schreibtischübung. /fex",
-
     ready = "Bereit? %d Sekunden",
     start = "Start",
     done = "Fertig",

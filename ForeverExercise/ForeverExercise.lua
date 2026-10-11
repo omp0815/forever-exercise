@@ -536,6 +536,8 @@ events:SetScript("OnEvent", function(_, event, name)
     if event == "PLAYER_REGEN_DISABLED" then
         if frame and frame:IsShown() then
             combatHide = true
+            -- An unfinished popup is due again when combat ends. A finished one stays closed.
+            if bar:GetValue() < ns.timing.duration then elapsed = math.max(elapsed, db.interval * 60) end
             frame:Hide()
         end
     elseif event == "PLAYER_DEAD" then
@@ -545,12 +547,6 @@ events:SetScript("OnEvent", function(_, event, name)
     elseif name == ADDON then
         ForeverExerciseDB = ForeverExerciseDB or {}
         db = ForeverExerciseDB
-        -- The old single switch applied to both; keep whatever the player chose.
-        if db.pauseInInstances ~= nil then
-            if db.pauseInRaid == nil then db.pauseInRaid = db.pauseInInstances end
-            if db.pauseInDungeon == nil then db.pauseInDungeon = db.pauseInInstances end
-            db.pauseInInstances = nil
-        end
         for key, value in pairs(ns.defaults) do
             if db[key] == nil then db[key] = value end
         end

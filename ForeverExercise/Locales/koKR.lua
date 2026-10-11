@@ -2,8 +2,6 @@ local _, ns = ...
 ns.locales = ns.locales or {}
 ns.locales.koKR = {
     title = "Forever Exercise",
-    notes = "틈틈이 짧은 책상 운동을 하라고 알려 줍니다. /fex",
-
     ready = "준비됐나요? %d초",
     start = "시작",
     done = "완료",

@@ -2,8 +2,6 @@ local _, ns = ...
 ns.locales = ns.locales or {}
 ns.locales.zhCN = {
     title = "Forever Exercise",
-    notes = "每隔一段时间提醒你做一段短暂的桌前运动。/fex",
-
     ready = "准备好了吗？%d 秒",
     start = "开始",
     done = "完成",

@@ -15,7 +15,7 @@ chestOpener, legExtensions, chairSquats, calfRaises, march, countdown, done.
 
 The release zip should contain the ForeverExercise folder at its root, with
 the .toc beside the lua files. Leave screenshots/ and this README out of
-that zip. The last section, "From this repository", can stay or be dropped.
+that zip.
 -->
 
 # Forever Exercise
@@ -89,7 +89,7 @@ Eight exercises, done in your chair or standing next to it. Nothing to set up. S
 
 ## Install
 
-Forever Exercise is for WoW Forever, interface 16001. The text is in English.
+Forever Exercise is for WoW Forever, interface 16001. The text follows your WoW client language (11 languages).
 
 1. Copy the `ForeverExercise` folder into your Forever client's `Interface\AddOns` folder. On the beta client, that is `_classic_beta_\Interface\AddOns`.
 2. Leave the folder named `ForeverExercise`.
@@ -98,3 +98,5 @@ Forever Exercise is for WoW Forever, interface 16001. The text is in English.
 ## Translations
 
 Translations are done with AI. If you have a better one, send a pull request on [GitHub](https://github.com/omp0815/forever-exercise).
+
+Edit `ForeverExercise/Locales/<code>.lua`, then run `node browser/check.js`.

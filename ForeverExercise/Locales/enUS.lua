@@ -6,8 +6,6 @@ ns.locales = ns.locales or {}
 -- enGB uses this table. Keep %d and %s in the same order in every language.
 ns.locales.enUS = {
     title = "Forever Exercise",
-    notes = "Reminds you to do a short desk exercise every so often. /fex",
-
     ready = "Ready? %d seconds",
     start = "Start",
     done = "Done",

@@ -1,4 +1,5 @@
-// node browser/check.js — validates ForeverExercise/Exercises.lua
+// node browser/check.js — validates Exercises.lua, the locale files, and that
+// the English exercise text in both places still matches.
 const assert = require('node:assert/strict');
 const { readFileSync, readdirSync } = require('node:fs');
 const { join } = require('node:path');
@@ -92,6 +93,14 @@ function sameShape(english, translated, path, code) {
 
 const english = parseLocale(readFileSync(join(LOCALES, 'enUS.lua'), 'utf8'));
 assert.equal(english.code, 'enUS');
+assert.deepEqual(D.exercises.map((ex) => ex.id).sort(), Object.keys(english.table.exercises).sort(),
+  'exercise ids in Exercises.lua and enUS.lua');
+for (const ex of D.exercises) {
+  const pack = english.table.exercises[ex.id];
+  assert.equal(ex.name, pack.name, `${ex.id} name`);
+  assert.equal(ex.flavor, pack.flavor, `${ex.id} flavor`);
+  assert.deepEqual(ex.steps, pack.steps, `${ex.id} steps`);
+}
 const codes = readdirSync(LOCALES).filter((name) => name.endsWith('.lua')).map((name) => name.slice(0, -4)).sort();
 assert.deepEqual(codes, ['deDE', 'enUS', 'esES', 'esMX', 'frFR', 'itIT', 'koKR', 'ptBR', 'ruRU', 'zhCN', 'zhTW']);
 for (const code of codes) {

@@ -89,8 +89,6 @@ function nextFromDeck(deck, exercises, current, random = Math.random) {
   return deck.shift();
 }
 
-// What a death does. becameGhost is null at the corpse and true/false once
-// PLAYER_ALIVE fires. Mirrors OnDeath/OnReleased in ForeverExercise.lua.
 // Lines for the minimap tooltip. `paused` is "in a raid" or "in a dungeon".
 // `left` is seconds. Mirrors TooltipLines in ForeverExercise.lua.
 function fill(template, ...args) {
@@ -123,6 +121,8 @@ function statusLines(s, L) {
   return lines;
 }
 
+// What a death does. becameGhost is null at the corpse and true/false once
+// PLAYER_ALIVE fires. Mirrors OnDeath/OnReleased in ForeverExercise.lua.
 function deathReaction(enabled, ghostsOnly, becameGhost) {
   if (becameGhost === null) return !enabled ? 'ignore' : ghostsOnly ? 'wait' : 'show';
   return enabled && ghostsOnly && becameGhost ? 'show' : 'ignore';
