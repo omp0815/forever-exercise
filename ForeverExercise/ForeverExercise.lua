@@ -32,6 +32,8 @@ local snoozed = false
 local waitForGhost = false
 local combatHide = false  -- hidden by combat: the reminder stays due
 local minimapButton
+local syncAfter
+local OfferSync
 
 for _, e in ipairs(ns.exercises) do
     e.frames = {}
@@ -339,6 +341,11 @@ local function Build()
         end
         combatHide = false
         remaining = nil
+        if syncAfter then
+            local seconds = syncAfter
+            syncAfter = nil
+            OfferSync(seconds)
+        end
     end)
 end
 
@@ -349,10 +356,11 @@ local function Clock(seconds)
     return ("%d:%02d"):format(math.floor(seconds / 60), seconds % 60)
 end
 
-local function PauseReason()
+-- "party" is a dungeon. Battlegrounds and arenas still open the window.
+local function HoldKind()
     local _, kind = IsInInstance()
-    if kind == "raid" and db.pauseInRaid then return L.inRaid end
-    if kind == "party" and db.pauseInDungeon then return L.inDungeon end
+    if kind == "raid" and db.pauseInRaid then return "raid" end
+    if kind == "party" and db.pauseInDungeon then return "dungeon" end
 end
 
 -- Same sentences as statusLines in browser/luadata.js, through L.
@@ -366,15 +374,17 @@ local function TooltipLines()
         return { L.exerciseReady }
     end
     local left = math.max(0, db.interval * 60 - elapsed)
-    local reason = PauseReason()
-    if reason then
-        local text = snoozed and L.pausedSnoozed:format(reason) or L.paused:format(reason)
-        return { text, L.resumes:format(Clock(left)) }
+    local hold = HoldKind()
+    if hold and elapsed >= db.interval * 60 then
+        return { hold == "raid" and L.dueLeaveRaid or L.dueLeaveDungeon }
     end
     if elapsed >= db.interval * 60 and InCombatLockdown() then
         return { L.dueCombat }
     end
     local lines = { snoozed and L.snoozedNext:format(Clock(left)) or L.nextExercise:format(Clock(left)) }
+    if hold then
+        lines[#lines + 1] = L.windowWaits
+    end
     if waitForGhost then
         lines[#lines + 1] = L.deathWaits
     end
@@ -397,13 +407,109 @@ end
 
 local function Tick()
     RefreshTooltip()
-    -- "party" is a dungeon. Battlegrounds and arenas keep the timer running.
-    local paused = PauseReason()
-    if frame:IsShown() or paused then return end
+    if frame:IsShown() then return end
     elapsed = elapsed + 1
+    if HoldKind() then return end
     if elapsed >= db.interval * 60 and not InCombatLockdown() then
         ShowReminder()
     end
+end
+
+-- Group sync uses addon messages only, so players without this addon see nothing.
+-- The joiner copies the leader's remaining time, or the soonest reply when the
+-- leader has no addon. Mirrors groupTimer in browser/luadata.js.
+local ADDON_PREFIX = "ForeverExercise"
+local askedThisGroup = false
+local syncSerial = 0
+local collecting = false
+local leaderLeft, soonestLeft
+
+local function SecondsLeft()
+    return math.max(0, math.ceil(db.interval * 60 - elapsed))
+end
+
+local function SendAddon(message, channel, target)
+    local send = C_ChatInfo and C_ChatInfo.SendAddonMessage or SendAddonMessage
+    if send then pcall(send, ADDON_PREFIX, message, channel, target) end
+end
+
+local function GroupChannel()
+    if LE_PARTY_CATEGORY_INSTANCE and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+        return "INSTANCE_CHAT"
+    end
+    if IsInRaid() then return "RAID" end
+    if IsInGroup() then return "PARTY" end
+end
+
+OfferSync = function(seconds)
+    local left = math.max(0, db.interval * 60 - elapsed)
+    if math.abs(left - seconds) < 1 then return end
+    if frame:IsShown() then
+        syncAfter = seconds
+        return
+    end
+    StaticPopup_Show("FOREVER_EXERCISE_SYNC", L.syncAsk:format(Clock(seconds)), nil, seconds)
+end
+
+StaticPopupDialogs.FOREVER_EXERCISE_SYNC = {
+    text = "%s",
+    button1 = YES,
+    button2 = NO,
+    OnAccept = function(_, seconds)
+        elapsed = db.interval * 60 - seconds
+        snoozed = false
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+
+local function OnAddon(prefix, message, _, sender)
+    if prefix ~= ADDON_PREFIX or not db.syncTimers or not sender then return end
+    if Ambiguate(sender, "short") == Ambiguate(UnitName("player"), "short") then return end
+    if message == "q" then
+        if IsInGroup() then SendAddon(("a:%d"):format(SecondsLeft()), "WHISPER", sender) end
+        return
+    end
+    local seconds = tonumber(message:match("^a:(%d+)$"))
+    -- ponytail: replies above the settings max (120 min) are ignored
+    if not seconds or seconds > 120 * 60 or not collecting then return end
+    if UnitIsGroupLeader(sender) then
+        leaderLeft = seconds
+    elseif not soonestLeft or seconds < soonestLeft then
+        soonestLeft = seconds
+    end
+end
+
+local function BeginAsk()
+    if askedThisGroup or not db.syncTimers or not IsInGroup() or UnitIsGroupLeader("player") then return end
+    local channel = GroupChannel()
+    if not channel then return end
+    askedThisGroup = true
+    syncSerial = syncSerial + 1
+    local serial = syncSerial
+    collecting = true
+    leaderLeft, soonestLeft = nil, nil
+    SendAddon("q", channel)
+    C_Timer.After(2, function()
+        if serial ~= syncSerial then return end
+        collecting = false
+        local pick = leaderLeft or soonestLeft
+        leaderLeft, soonestLeft = nil, nil
+        if pick and IsInGroup() and db.syncTimers then OfferSync(pick) end
+    end)
+end
+
+local function OnRoster()
+    if not IsInGroup() then
+        askedThisGroup = false
+        syncSerial = syncSerial + 1
+        collecting = false
+        leaderLeft, soonestLeft = nil, nil
+        return
+    end
+    BeginAsk()
 end
 
 local function Checkbox(key, name, tooltip)
@@ -430,6 +536,7 @@ local function RegisterSettings()
     Settings.CreateSlider(category, interval, options, L.reminderIntervalTip)
     Checkbox("pauseInRaid", L.pauseInRaids, L.pauseInRaidsTip)
     Checkbox("pauseInDungeon", L.pauseInDungeons, L.pauseInDungeonsTip)
+    Checkbox("syncTimers", L.syncTimers, L.syncTimersTip)
     DeathOption("exerciseOnDeath", L.exerciseOnDeath, L.exerciseOnDeathTip)
     DeathOption("exerciseOnDungeonDeath", L.exerciseOnDungeonDeath, L.exerciseOnDungeonDeathTip)
     DeathOption("exerciseOnRaidDeath", L.exerciseOnRaidDeath, L.exerciseOnRaidDeathTip)
@@ -533,7 +640,7 @@ end
 local events = CreateFrame("Frame")
 events:RegisterEvent("ADDON_LOADED")
 events:RegisterEvent("PLAYER_REGEN_DISABLED")
-events:SetScript("OnEvent", function(_, event, name)
+events:SetScript("OnEvent", function(_, event, ...)
     if event == "PLAYER_REGEN_DISABLED" then
         if frame and frame:IsShown() then
             combatHide = true
@@ -545,7 +652,11 @@ events:SetScript("OnEvent", function(_, event, name)
         OnDeath()
     elseif event == "PLAYER_ALIVE" then
         OnReleased()
-    elseif name == ADDON then
+    elseif event == "CHAT_MSG_ADDON" then
+        OnAddon(...)
+    elseif event == "GROUP_ROSTER_UPDATE" or event == "PLAYER_ENTERING_WORLD" then
+        OnRoster()
+    elseif event == "ADDON_LOADED" and ... == ADDON then
         ForeverExerciseDB = ForeverExerciseDB or {}
         db = ForeverExerciseDB
         for key, value in pairs(ns.defaults) do
@@ -554,8 +665,14 @@ events:SetScript("OnEvent", function(_, event, name)
         Build()
         RegisterSettings()
         CreateMinimapButton()
+        local register = C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix
+        if register then pcall(register, ADDON_PREFIX) end
         events:RegisterEvent("PLAYER_DEAD")
         events:RegisterEvent("PLAYER_ALIVE")
+        events:RegisterEvent("GROUP_ROSTER_UPDATE")
+        events:RegisterEvent("PLAYER_ENTERING_WORLD")
+        events:RegisterEvent("CHAT_MSG_ADDON")
         C_Timer.NewTicker(1, Tick)
+        OnRoster()
     end
 end)

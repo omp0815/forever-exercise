@@ -11,6 +11,7 @@ ns.defaults = {
     interval = 30,          -- minutes between reminders
     pauseInRaid = true,
     pauseInDungeon = true,
+    syncTimers = true,
     minimapAngle = 225,     -- degrees around the minimap, 0 is east
     exerciseOnDeath = false,
     exerciseOnDeathGhost = false,

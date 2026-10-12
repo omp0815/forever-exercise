@@ -3,7 +3,7 @@
 const assert = require('node:assert/strict');
 const { readFileSync, readdirSync } = require('node:fs');
 const { join } = require('node:path');
-const { loadData, parseLocale, nextFromDeck, deathReaction, statusLines } = require('./luadata.js');
+const { loadData, parseLocale, nextFromDeck, deathReaction, statusLines, groupTimer } = require('./luadata.js');
 
 const D = loadData(readFileSync(join(__dirname, '../ForeverExercise/Exercises.lua'), 'utf8'));
 const joints = new Set(D.bones.flat());
@@ -65,9 +65,16 @@ assert.equal(deathReaction(true, false, true), 'ignore');
 
 assert.deepEqual(statusLines({ shown: false, left: 90 }), ['Next exercise in 1:30']);
 assert.deepEqual(statusLines({ shown: false, left: 90, snoozed: true }), ['Snoozed, next exercise in 1:30']);
-assert.deepEqual(statusLines({ shown: false, paused: 'in a raid', snoozed: true, left: 65 }),
-  ['Paused in a raid, snoozed', 'Resumes with 1:05 left']);
+assert.deepEqual(statusLines({ shown: false, held: 'raid', snoozed: true, left: 65 }),
+  ['Snoozed, next exercise in 1:05', 'The window waits until you leave']);
+assert.deepEqual(statusLines({ shown: false, dueHeld: true, held: 'raid', left: 0 }),
+  ['Due now, waiting until you leave the raid']);
+assert.deepEqual(statusLines({ shown: false, dueHeld: true, held: 'dungeon', left: 0 }),
+  ['Due now, waiting until you leave the dungeon']);
 assert.deepEqual(statusLines({ shown: false, due: true, left: 0 }), ['Due now, waiting for combat to end']);
+assert.equal(groupTimer([{ leader: false, seconds: 30 }, { leader: true, seconds: 100 }]), 100);
+assert.equal(groupTimer([{ leader: false, seconds: 30 }, { leader: false, seconds: 10 }]), 10);
+assert.equal(groupTimer([]), null);
 assert.deepEqual(statusLines({ shown: true, remaining: 12.2 }), ['Exercising, 13s left']);
 assert.deepEqual(statusLines({ shown: true, finished: true }), ['Exercise finished']);
 assert.deepEqual(statusLines({ shown: true }), ['Exercise ready']);

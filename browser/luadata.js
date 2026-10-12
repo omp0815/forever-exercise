@@ -89,8 +89,9 @@ function nextFromDeck(deck, exercises, current, random = Math.random) {
   return deck.shift();
 }
 
-// Lines for the minimap tooltip. `paused` is "in a raid" or "in a dungeon".
-// `left` is seconds. Mirrors TooltipLines in ForeverExercise.lua.
+// Lines for the minimap tooltip. `held` is "raid" or "dungeon" while notifications
+// wait. `dueHeld` means the reminder already came due there. `left` is seconds.
+// Mirrors TooltipLines in ForeverExercise.lua.
 function fill(template, ...args) {
   let n = 0;
   return String(template).replace(/%[ds]/g, () => args[n++]);
@@ -108,17 +109,30 @@ function statusLines(s, L) {
     if (s.finished) return [line('exerciseFinished', 'Exercise finished')];
     return [line('exerciseReady', 'Exercise ready')];
   }
-  if (s.paused) {
-    const key = s.snoozed ? 'pausedSnoozed' : 'paused';
-    const fallback = s.snoozed ? 'Paused %s, snoozed' : 'Paused %s';
-    return [line(key, fallback, s.paused), line('resumes', 'Resumes with %s left', clock(s.left))];
+  if (s.dueHeld) {
+    const dungeon = s.held === 'dungeon';
+    return [line(dungeon ? 'dueLeaveDungeon' : 'dueLeaveRaid', dungeon
+      ? 'Due now, waiting until you leave the dungeon'
+      : 'Due now, waiting until you leave the raid')];
   }
   if (s.due) return [line('dueCombat', 'Due now, waiting for combat to end')];
   const lines = [s.snoozed
     ? line('snoozedNext', 'Snoozed, next exercise in %s', clock(s.left))
     : line('nextExercise', 'Next exercise in %s', clock(s.left))];
+  if (s.held) lines.push(line('windowWaits', 'The window waits until you leave'));
   if (s.waitForGhost) lines.push(line('deathWaits', 'Death exercise waits until you release your spirit'));
   return lines;
+}
+
+// Seconds the joiner adopts. The leader wins; otherwise the soonest reply.
+// replies: [{ leader: boolean, seconds: number }]. Mirrors the reply pick in ForeverExercise.lua.
+function groupTimer(replies) {
+  let leader = null, soonest = null;
+  for (const r of replies) {
+    if (r.leader) leader = r.seconds;
+    else if (soonest === null || r.seconds < soonest) soonest = r.seconds;
+  }
+  return leader !== null ? leader : soonest;
 }
 
 // What a death does. becameGhost is null at the corpse and true/false once
@@ -128,4 +142,4 @@ function deathReaction(enabled, ghostsOnly, becameGhost) {
   return enabled && ghostsOnly && becameGhost ? 'show' : 'ignore';
 }
 
-if (typeof module !== 'undefined') module.exports = { parseLuaData, loadData, parseLocale, nextFromDeck, deathReaction, statusLines };
+if (typeof module !== 'undefined') module.exports = { parseLuaData, loadData, parseLocale, nextFromDeck, deathReaction, statusLines, groupTimer };

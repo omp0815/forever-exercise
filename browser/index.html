@@ -115,8 +115,8 @@
   <label>Clock
     <select id="speed"><option value="60">fast: 1 minute = 1 second</option><option value="1">real time</option></select>
   </label>
-  <label><input id="pauseRaid" type="checkbox"> Pause in raids</label>
-  <label><input id="pauseDungeon" type="checkbox"> Pause in dungeons</label>
+  <label><input id="pauseRaid" type="checkbox"> Pause exercise notifications in raids</label>
+  <label><input id="pauseDungeon" type="checkbox"> Pause exercise notifications in dungeons</label>
   <label>Where
     <select id="where">
       <option value="world">world</option>
@@ -265,19 +265,21 @@ function hide() {
 function tick() {
   const interval = $('interval').value * 60;
   const where = $('where').value;
-  const paused = (where === 'raid' && $('pauseRaid').checked) || (where === 'party' && $('pauseDungeon').checked);
-  if (!shown() && !paused) {
+  const held = (where === 'raid' && $('pauseRaid').checked) || (where === 'party' && $('pauseDungeon').checked);
+  if (!shown()) {
     sim.elapsed += Number($('speed').value);
-    if (sim.elapsed >= interval && !$('combat').checked) show();
+    if (sim.elapsed >= interval && !held && !$('combat').checked) show();
   }
   const left = Math.max(0, interval - sim.elapsed);
+  const due = !shown() && sim.elapsed >= interval;
   $('readout').textContent = statusLines({
     shown: shown(),
     remaining: sim.remaining,
     finished: sim.done,
-    paused: paused ? (where === 'raid' ? say('inRaid', 'in a raid') : say('inDungeon', 'in a dungeon')) : null,
+    held: held ? (where === 'party' ? 'dungeon' : 'raid') : null,
+    dueHeld: due && held,
     snoozed: sim.snoozed,
-    due: !shown() && sim.elapsed >= interval && $('combat').checked,
+    due: due && $('combat').checked && !held,
     left,
     waitForGhost: waitingGhost && !shown(),
   }, locale).join(' · ');

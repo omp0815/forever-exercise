@@ -49,7 +49,7 @@ The window closes if you enter combat and opens again when the fight ends. A rem
 
 A pocket watch hangs on the minimap. Hover it for the time until the next exercise. Click it to open the settings. Drag it around the edge of the minimap.
 
-The tooltip also says when the timer is paused, snoozed, waiting for combat to end, or waiting until you release your spirit.
+The tooltip also says when the next exercise is snoozed, when the window is waiting until you leave a raid or dungeon, when it is waiting for combat to end, or when it is waiting until you release your spirit. The countdown keeps moving while that window waits.
 
 ## Commands
 
@@ -62,8 +62,9 @@ The tooltip also says when the timer is paused, snoozed, waiting for combat to e
 These are in the game's own settings, under **Forever Exercise**. The minimap button opens them there.
 
 - **Reminder interval.** Minutes of play between reminders. 5 to 120, in steps of 5. The default is 30.
-- **Pause in raids.** On by default. The timer stops inside a raid and resumes when you leave, keeping whatever time was left.
-- **Pause in dungeons.** On by default. The same, for dungeons. Battlegrounds and arenas keep the timer running.
+- **Pause exercise notifications in raids.** On by default. The timer keeps running inside a raid, but the window waits until you leave. If it came due inside, it opens once you are back outside.
+- **Pause exercise notifications in dungeons.** On by default. The same, for dungeons. Battlegrounds and arenas still open the window on time.
+- **Sync timer with group.** On by default. When you join a group or raid, and someone else there is using this addon, you are asked once to match their timer. The question is only on your screen. Turn this off and you are never asked.
 - **Exercise when you die.** In the world, a battleground, or an arena. Off by default.
 - **Exercise when you die in a dungeon.** Off by default.
 - **Exercise when you die in a raid.** Off by default.
